@@ -20,7 +20,8 @@ def print_csv_summary(csv_path):
     print("-"*20)
 
 def explore_data():
-    data_dir = "Data/"
+    data_dir = "../../Data/raw"
+    data_dir = os.path.abspath(data_dir) + '/'
     csv_list = get_dir_csvs(data_dir)
     for csv in csv_list:
         print_csv_summary(csv)
