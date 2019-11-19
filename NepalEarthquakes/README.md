@@ -14,7 +14,8 @@
 |   |- __init__.py          -> Makes src a Python module
 |   |
 |   |- data                 -> Scripts to download or generate data
-|   │   |-data_summary.py   
+|   │   |-data_summary.py
+|   |   |-data_split.py
 |   |
 |   |- features             -> Scripts to turn raw data into features for modeling
 |   |
@@ -46,3 +47,8 @@ python data_summary.py
 '''
 This is print to console the information (filename, shape, columns, and the first 5 rows) 
 of each csv in the Data/raw directory.
+
+'''
+python data_split.py
+'''
+This is to split the provided data-set into train, dev, and test and place the result in the Data/processed folder.
