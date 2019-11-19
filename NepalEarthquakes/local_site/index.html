@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data documentation compiled by Great Expectations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title></title>
+
+    
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+    <style>body {
+  position: relative;
+}
+
+.container {
+  padding-top: 50px;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+  z-index: 1;
+}
+
+.ge-section {
+  clear: both;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.triangle {
+  border: solid #222;
+  border-width: 0 1px 1px 0;
+  display: inline;
+  cursor: pointer;
+  padding: 3px;
+  position: absolute;
+  right: 0;
+  margin-top: 10px;
+
+  transform: rotate(40deg);
+  -webkit-transform: rotate(40deg);
+  transition: .3s transform ease-in-out;
+}
+
+.collapsed .triangle {
+  transform: rotate(-140deg);
+  -webkit-transform: rotate(-140deg);
+  transition: .3s transform ease-in-out;
+}
+
+.popover {
+  max-width: 100%;
+}
+
+.cooltip {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cooltip .top {
+  min-width: 200px;
+  top: -6px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  padding: 10px 20px;
+  color: #FFFFFF;
+  background-color: #222222;
+  font-weight: normal;
+  font-size: 13px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 99999999 !important;
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.cooltip:hover .top {
+  display: block;
+  z-index: 99999999 !important;
+}
+
+.cooltip .top i {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -12px;
+  width: 24px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.cooltip .top i::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: #222222;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+ul {
+  padding-inline-start: 20px;
+}
+
+.show-scrollbars {
+  overflow: auto;
+}
+
+td .show-scrollbars {
+  max-height: 80vh;
+}
+
+/*.show-scrollbars ul {*/
+/*  padding-bottom: 20px*/
+/*}*/
+
+.show-scrollbars::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.show-scrollbars::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+.show-scrollbars::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+.show-scrollbars::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, .5);
+}
+
+#ge-cta-footer {
+  opacity: 0.9;
+  border-left-width: 4px
+}</style>
+    <style>/*index page*/
+.ge-index-page-datasource-title {}
+.ge-index-page-generator-title {}
+.ge-index-page-generator-table-container {}
+.ge-index-page-generator-table {}
+.ge-index-page-generator-table-data-asset-header {}
+.ge-index-page-generator-table-profiling-links-header {}
+.ge-index-page-generator-table-expectations-links-header {}
+.ge-index-page-generator-table-validations-links-header {}
+.ge-index-page-generator-table-data-asset-name {}
+.ge-index-page-generator-table-profiling-links-list {}
+.ge-index-page-generator-table-profiling-links-item {}
+.ge-index-page-generator-table-expectation-suite-link {}
+.ge-index-page-generator-table-validation-links-list {}
+.ge-index-page-generator-table-validation-links-item {}
+
+/*breadcrumbs*/
+.ge-breadcrumbs {}
+.ge-breadcrumbs-item {}
+
+/*navigation sidebar*/
+.ge-navigation-sidebar-container {}
+.ge-navigation-sidebar-content {}
+.ge-navigation-sidebar-title {}
+.ge-navigation-sidebar-link {}</style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.3.5/build/vega.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@3.2.1/build/vega-lite.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@4.0.0/build/vega-embed.js"></script>
+<script src="https://kit.fontawesome.com/8217dffd95.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body
+          data-spy="scroll"
+          data-target="#navigation"
+          data-offset="50"
+  >
+    
+
+<nav class="navbar bg-light navbar-expand-md sticky-top border-bottom">
+  <div class="mr-auto">
+    <nav aria-label="breadcrumb" class="d-flex align-items-center">
+      <div class="float-left navbar-brand m-0">
+        <h4>Great Expectations Data Docs</h4>
+      </div>
+      
+    </nav>
+  </div>
+</nav>
+    <div class="container-fluid pt-4 pb-4 pl-5 pr-5">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 d-none d-md-block">
+  <div class="mb-4">
+  <div class="col-12">
+    <div class="row">
+      <img
+        src="https://great-expectations.readthedocs.io/en/latest/_images/generic_dickens_protagonist.png"
+        style="
+          width: 200px;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+    </div>
+  </div>
+  <div class="col-12">
+    <p>
+      Documentation autogenerated using
+      <a href="https://greatexpectations.io">Great Expectations</a>.
+    </p>
+  </div>
+  <div class="alert alert-danger col-12" role="alert">
+      This is a beta feature! Expect changes in API, behavior, and design.
+  </div>
+</div>
+  <div class="sticky">
+    
+      <script>
+    function showAllValidations() {
+    $(".hide-succeeded-validation-target-child").parent().fadeIn();
+    $(".hide-succeeded-validation-target").fadeIn();
+  }
+
+    function hideSucceededValidations() {
+    $(".hide-succeeded-validation-target-child").parent().fadeOut();
+    $(".hide-succeeded-validation-target").fadeOut();
+  }
+</script>
+
+<div class="card bg-light mb-3">
+  <div class="card-header p-2">
+    <strong>Actions</strong>
+  </div>
+  <div class="card-body p-3">
+
+
+
+    <p class="card-text col-12 p-0 mb-1">
+      Validation Filter:
+    </p>
+    <div class="d-flex justify-content-center">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-info btn-sm active" onclick="showAllValidations()">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Show All
+        </label>
+        <label class="btn btn-info btn-sm" onclick="hideSucceededValidations()">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Failed Only
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </div>
+</div>
+        <div class="col-md-10 col-lg-10 col-xs-12 pl-4 pr-3">
+          
+            
+<div id="section-1" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-1-content-block-1" class="col-12 ge-index-page-datasource-title" >
+
+    <div id="section-1-content-block-1-header" class="alert alert-secondary" ><h3>
+          
+                <span >
+                    <strong >Datasource</strong> | train_data
+                </span>
+            
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-1-content-block-2" class="col-12 ml-4 ge-index-page-generator-title" >
+
+    <div id="section-1-content-block-2-header" ><h5 id="section-1-content-block-2-subheader" >
+        
+                <span >
+                    <strong >Data Asset Generator</strong> | default
+                </span>
+            
+    </h5>
+    </div>
+
+</div>
+        
+
+<div id="section-1-content-block-3" class="col-12 ge-index-page-generator-table-container pl-5 pr-4" style="margin-top:10px;" >
+
+    
+
+<table id="section-1-content-block-3-body" class="table table-sm ge-index-page-generator-table" >
+    
+        <tr>
+            
+                <th>
+                <span class="ge-index-page-generator-table-data-asset-header" >
+                    Data Asset
+                </span>
+            </th>
+            
+                <th>
+                <span class="ge-index-page-generator-table-profiling-links-header" >
+                    Profiling Results
+                </span>
+            </th>
+            
+                <th>
+                <span class="ge-index-page-generator-table-expectations-links-header" >
+                    Expectation Suite
+                </span>
+            </th>
+            
+        </tr>
+    
+
+    <tr>
+        <td id="section-1-content-block-3-cell-1-1" rowspan="1" style="width:33.333333333333336%;" ><div class="show-scrollbars">
+                <blockquote >
+                    <span class="h6 ge-index-page-generator-table-data-asset-name" >train_values</span>
+                </blockquote>
+            </div></td><td id="section-1-content-block-3-cell-1-2" rowspan="1" style="width:33.333333333333336%;" ><div class="show-scrollbars">
+
+<ul id="section-1-content-block-3-body" class="ge-index-page-generator-table-profiling-links-list" >
+    
+            
+        
+        <li >
+                <a class="ge-index-page-generator-table-profiling-links-item" href="validations/profiling/train_data/default/train_values/BasicDatasetProfiler.html" >
+                    BasicDatasetProfiler-ProfilingResults
+                </a>
+            </li>
+    
+</ul></div></td><td id="section-1-content-block-3-cell-1-3" style="width:33.333333333333336%;" ><div class="show-scrollbars">
+                <a class="ge-index-page-generator-table-expectation-suite-link" href="expectations/train_data/default/train_values/BasicDatasetProfiler.html" >
+                    BasicDatasetProfiler
+                </a>
+            </div></td></tr></table>
+
+</div>
+        
+    </div>
+</div>
+          
+        </div>
+        <div class="d-block d-sm-none col-12">
+          <div class="mb-4">
+  <div class="col-12">
+    <div class="row">
+      <img
+        src="https://great-expectations.readthedocs.io/en/latest/_images/generic_dickens_protagonist.png"
+        style="
+          width: 200px;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+    </div>
+  </div>
+  <div class="col-12">
+    <p>
+      Documentation autogenerated using
+      <a href="https://greatexpectations.io">Great Expectations</a>.
+    </p>
+  </div>
+  <div class="alert alert-danger col-12" role="alert">
+      This is a beta feature! Expect changes in API, behavior, and design.
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+      <footer class="border border-info alert alert-info fixed-bottom alert-dismissible fade show m-0 rounded-0 invisible" id="ge-cta-footer" role="alert" >
+  <h5 class="alert-heading text-center">
+    
+                <span class="cooltip" >
+                    <i class="m-1 fas fa-question-circle" ></i>
+                    <span class=top>
+                        To disable this footer, set the show_cta_footer flag in your project config to false.
+                    </span>
+                </span>
+            
+    To continue exploring Great Expectations...
+  </h5>
+  <div class="d-flex justify-content-center">
+    
+      <a href="https://docs.greatexpectations.io/en/latest/tutorials/create_expectations.html?utm_source=ge-init-datadocs-v2&utm_medium=pandas&utm_campaign=None" class="btn btn-primary m-2" rel="noopener noreferrer" target="_blank">Create Expectations</a>
+    
+      <a href="https://docs.greatexpectations.io/en/latest/tutorials/pipeline_integration.html?utm_source=ge-init-datadocs-v2&utm_medium=pandas&utm_campaign=None" class="btn btn-primary m-2" rel="noopener noreferrer" target="_blank">Play with Validations</a>
+    
+      <a href="https://docs.greatexpectations.io/en/latest/reference/data_docs_reference.html#customizing-data-docs?utm_source=ge-init-datadocs-v2&utm_medium=pandas&utm_campaign=None" class="btn btn-primary m-2" rel="noopener noreferrer" target="_blank">Customize Data Docs</a>
+    
+      <a href="https://docs.greatexpectations.io/en/latest/tutorials/publishing_data_docs_to_s3.html?utm_source=ge-init-datadocs-v2&utm_medium=pandas&utm_campaign=None" class="btn btn-primary m-2" rel="noopener noreferrer" target="_blank">Set up a team site on AWS S3</a>
+    
+  </div>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</footer>
+<script>
+  if (sessionStorage.getItem("showCta") !== "false") {
+    $('#ge-cta-footer').removeClass("invisible")
+  }
+  $('#ge-cta-footer').on('closed.bs.alert', function () {
+    sessionStorage.setItem("showCta", false)
+  })
+</script>
+    
+
+  </body>
+</html>
