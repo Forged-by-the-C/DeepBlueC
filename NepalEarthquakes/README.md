@@ -23,6 +23,9 @@
 |   |   |- random_forest.py
 |   |
 |   |- visualization        ->  Scripts to create exploratory and results oriented visualizations
+|   |
+|   |- utils		    ->  General purpose scripts
+|   |   |- performance_score.py
 |
 |- requirements.txt
 ```
