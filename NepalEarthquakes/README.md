@@ -2,7 +2,7 @@
 
 ##Organization
 
-'''
+```
 |- Data
 |   |- raw                  -> all the csv's provided by the competition
 |   |- split                -> the split csv's to train(80%), cross_val(10%), and test(10%)
@@ -25,7 +25,7 @@
 |   |- visualization        ->  Scripts to create exploratory and results oriented visualizations
 |
 |- requirements.txt
-'''
+```
 
 
 ##Setup
