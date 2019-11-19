@@ -1,0 +1,4014 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data documentation compiled by Great Expectations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title></title>
+
+    
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+    <style>body {
+  position: relative;
+}
+
+.container {
+  padding-top: 50px;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+  z-index: 1;
+}
+
+.ge-section {
+  clear: both;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.triangle {
+  border: solid #222;
+  border-width: 0 1px 1px 0;
+  display: inline;
+  cursor: pointer;
+  padding: 3px;
+  position: absolute;
+  right: 0;
+  margin-top: 10px;
+
+  transform: rotate(40deg);
+  -webkit-transform: rotate(40deg);
+  transition: .3s transform ease-in-out;
+}
+
+.collapsed .triangle {
+  transform: rotate(-140deg);
+  -webkit-transform: rotate(-140deg);
+  transition: .3s transform ease-in-out;
+}
+
+.popover {
+  max-width: 100%;
+}
+
+.cooltip {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cooltip .top {
+  min-width: 200px;
+  top: -6px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  padding: 10px 20px;
+  color: #FFFFFF;
+  background-color: #222222;
+  font-weight: normal;
+  font-size: 13px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 99999999 !important;
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.cooltip:hover .top {
+  display: block;
+  z-index: 99999999 !important;
+}
+
+.cooltip .top i {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -12px;
+  width: 24px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.cooltip .top i::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: #222222;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+ul {
+  padding-inline-start: 20px;
+}
+
+.show-scrollbars {
+  overflow: auto;
+}
+
+td .show-scrollbars {
+  max-height: 80vh;
+}
+
+/*.show-scrollbars ul {*/
+/*  padding-bottom: 20px*/
+/*}*/
+
+.show-scrollbars::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.show-scrollbars::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+.show-scrollbars::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+.show-scrollbars::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, .5);
+}
+
+#ge-cta-footer {
+  opacity: 0.9;
+  border-left-width: 4px
+}</style>
+    <style>/*index page*/
+.ge-index-page-datasource-title {}
+.ge-index-page-generator-title {}
+.ge-index-page-generator-table-container {}
+.ge-index-page-generator-table {}
+.ge-index-page-generator-table-data-asset-header {}
+.ge-index-page-generator-table-profiling-links-header {}
+.ge-index-page-generator-table-expectations-links-header {}
+.ge-index-page-generator-table-validations-links-header {}
+.ge-index-page-generator-table-data-asset-name {}
+.ge-index-page-generator-table-profiling-links-list {}
+.ge-index-page-generator-table-profiling-links-item {}
+.ge-index-page-generator-table-expectation-suite-link {}
+.ge-index-page-generator-table-validation-links-list {}
+.ge-index-page-generator-table-validation-links-item {}
+
+/*breadcrumbs*/
+.ge-breadcrumbs {}
+.ge-breadcrumbs-item {}
+
+/*navigation sidebar*/
+.ge-navigation-sidebar-container {}
+.ge-navigation-sidebar-content {}
+.ge-navigation-sidebar-title {}
+.ge-navigation-sidebar-link {}</style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.3.5/build/vega.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@3.2.1/build/vega-lite.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@4.0.0/build/vega-embed.js"></script>
+<script src="https://kit.fontawesome.com/8217dffd95.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body
+        data-spy="scroll"
+        data-target="#navigation"
+        data-offset="50"
+    >
+    
+  
+
+<nav class="navbar bg-light navbar-expand-md sticky-top border-bottom">
+  <div class="mr-auto">
+    <nav aria-label="breadcrumb" class="d-flex align-items-center">
+      <div class="float-left navbar-brand m-0">
+        <h4>Great Expectations Data Docs</h4>
+      </div>
+      
+        <ol class="ge-breadcrumbs breadcrumb d-inline-flex bg-light m-0 pt-0 pb-0">
+            
+              <li class="ge-breadcrumbs-item breadcrumb-item"><a href="../../../../index.html">Home</a></li>
+            
+            
+                <li class="ge-breadcrumbs-item breadcrumb-item">train_data</li>
+            
+                <li class="ge-breadcrumbs-item breadcrumb-item">default</li>
+            
+                <li class="ge-breadcrumbs-item breadcrumb-item">train_values</li>
+            
+            <li class="ge-breadcrumbs-item breadcrumb-item active" aria-current="page">BasicDatasetProfiler</li>
+        </ol>
+      
+    </nav>
+  </div>
+</nav>
+
+    <div class="container-fluid pt-4 pb-4 pl-5 pr-5">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 d-none d-md-block">
+  <div class="mb-4">
+  <div class="col-12">
+    <div class="row">
+      <img
+        src="https://great-expectations.readthedocs.io/en/latest/_images/generic_dickens_protagonist.png"
+        style="
+          width: 200px;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+    </div>
+  </div>
+  <div class="col-12">
+    <p>
+      Documentation autogenerated using
+      <a href="https://greatexpectations.io">Great Expectations</a>.
+    </p>
+  </div>
+  <div class="alert alert-danger col-12" role="alert">
+      This is a beta feature! Expect changes in API, behavior, and design.
+  </div>
+</div>
+  <div class="sticky">
+    
+    
+      <script>
+  $(window).on('activate.bs.scrollspy', function () {
+    document.querySelector(".nav-link.active").scrollIntoViewIfNeeded();
+  });
+</script>
+
+<div class="card bg-light" style="max-height: 90vh">
+  <div class="card-header p-2">
+    <strong>Table of Contents</strong>
+  </div>
+  <div class="card-body p-0" style="overflow: auto; height: 100%">
+    <nav id="navigation" class="rounded navbar navbar-light bg-light ge-navigation-sidebar-container p-1">
+      <ul class="nav nav-pills flex-column ge-navigation-sidebar-content col-12 p-0">
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link" href="#section-1"
+               style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                <strong>Overview</strong>
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-2"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                age
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-3"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                area_percentage
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-4"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                building_id
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-5"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                count_families
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-6"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                count_floors_pre_eq
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-7"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                foundation_type
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-8"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                geo_level_1_id
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-9"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                geo_level_2_id
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-10"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                geo_level_3_id
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-11"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                ground_floor_type
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-12"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-13"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_agriculture
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-14"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_gov_office
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-15"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_health_post
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-16"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_hotel
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-17"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_industry
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-18"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_institution
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-19"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_other
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-20"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_rental
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-21"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_school
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-22"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_secondary_use_use_police
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-23"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_adobe_mud
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-24"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_bamboo
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-25"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_cement_mortar_brick
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-26"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_cement_mortar_stone
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-27"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_mud_mortar_brick
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-28"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_mud_mortar_stone
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-29"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_other
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-30"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_rc_engineered
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-31"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_rc_non_engineered
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-32"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_stone_flag
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-33"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                has_superstructure_timber
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-34"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                height_percentage
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-35"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                land_surface_condition
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-36"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                legal_ownership_status
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-37"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                other_floor_type
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-38"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                plan_configuration
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-39"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                position
+              </a>
+            </li>
+          
+        
+          
+            <li class="nav-item">
+              <a class="nav-link ge-navigation-sidebar-link ml-1" href="#section-40"
+                 style="white-space: normal; word-break: break-all;overflow-wrap: normal;">
+                roof_type
+              </a>
+            </li>
+          
+        
+      </ul>
+    </nav>
+  </div>
+</div>
+    
+  </div>
+</div>
+        <div class="col-md-10 col-lg-10 col-xs-12 pl-4 pr-3">
+        
+          
+<div id="section-1" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-1-content-block-1" class="col-12" >
+
+    <div id="section-1-content-block-1-header" class="alert alert-secondary" ><h3>
+          Expectation Suite Overview
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-1-content-block-2" class="col-12 table-responsive" style="margin-top:20px; margin-bottom:20px;" >
+
+    <div id="section-1-content-block-2-header" >
+        
+        <h4>
+            Info
+        </h4>
+        </div>
+
+
+<table id="section-1-content-block-2-body" class="table table-sm" >
+    
+
+    <tr>
+        <td id="section-1-content-block-2-cell-1-1" ><div class="show-scrollbars"><span>Full Data Asset Identifier</span></div></td><td id="section-1-content-block-2-cell-1-2" ><div class="show-scrollbars"><span>train_data/default/train_values</span></div></td></tr><tr>
+        <td id="section-1-content-block-2-cell-2-1" ><div class="show-scrollbars"><span>Data Asset Type</span></div></td><td id="section-1-content-block-2-cell-2-2" ><div class="show-scrollbars"><span>Dataset</span></div></td></tr><tr>
+        <td id="section-1-content-block-2-cell-3-1" ><div class="show-scrollbars"><span>Expectation Suite Name</span></div></td><td id="section-1-content-block-2-cell-3-2" ><div class="show-scrollbars"><span>BasicDatasetProfiler</span></div></td></tr><tr>
+        <td id="section-1-content-block-2-cell-4-1" ><div class="show-scrollbars"><span>Great Expectations Version</span></div></td><td id="section-1-content-block-2-cell-4-2" ><div class="show-scrollbars"><span>0.8.5</span></div></td></tr></table>
+
+</div>
+        
+
+<div id="section-1-content-block-3" class="col-12" >
+
+    <div id="section-1-content-block-3-header" >
+        
+        <h4>
+            Table-Level Expectations
+        </h4>
+        </div>
+
+
+<ul id="section-1-content-block-3-body" >
+    
+            
+        
+        <li >
+                <span >
+                    Must have more than <span class="badge badge-secondary" >0</span> rows.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    This table should have a list of columns in a specific order, but that order is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+
+<div id="section-1-content-block-4" class="col-12 table-responsive" style="margin-top:20px;" >
+
+    <div id="section-1-content-block-4-header" >
+        
+        <h4>
+            Notes
+        </h4>
+        </div>
+
+
+<div id="section-1-content-block-4-body" class="table table-sm" >
+    <p>This Expectation suite currently contains 274 total Expectations across 39 columns.</p>
+    <p><p><em>To add additional notes, edit the <code>meta.notes.content</code> field in the appropriate Expectation json file.</em></p>
+</p>
+    </div>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-2" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-2-content-block-1" class="col-12" >
+
+    <div id="section-2-content-block-1-header" class="alert alert-secondary" ><h3>
+          age
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-2-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-2-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    minimum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    maximum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    mean may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    median may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    standard deviation may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li class="alert alert-warning" >
+                <span >
+                    <span class="badge badge-warning" >expect_column_quantile_values_to_be_between</span>(**{'column': 'age', 'quantile_ranges': {'quantiles': [0.05, 0.25, 0.5, 0.75, 0.95], 'value_ranges': [[None, None], [None, None], [None, None], [None, None], [None, None]]}})
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    Column can match any distribution.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-3" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-3-content-block-1" class="col-12" >
+
+    <div id="section-3-content-block-1-header" class="alert alert-secondary" ><h3>
+          area_percentage
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-3-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-3-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    minimum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    maximum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    mean may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    median may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    standard deviation may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li class="alert alert-warning" >
+                <span >
+                    <span class="badge badge-warning" >expect_column_quantile_values_to_be_between</span>(**{'column': 'area_percentage', 'quantile_ranges': {'quantiles': [0.05, 0.25, 0.5, 0.75, 0.95], 'value_ranges': [[None, None], [None, None], [None, None], [None, None], [None, None]]}})
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    Column can match any distribution.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-4" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-4-content-block-1" class="col-12" >
+
+    <div id="section-4-content-block-1-header" class="alert alert-secondary" ><h3>
+          building_id
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-4-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-4-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must be unique.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-5" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-5-content-block-1" class="col-12" >
+
+    <div id="section-5-content-block-1-header" class="alert alert-secondary" ><h3>
+          count_families
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-5-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-5-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-6" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-6-content-block-1" class="col-12" >
+
+    <div id="section-6-content-block-1-header" class="alert alert-secondary" ><h3>
+          count_floors_pre_eq
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-6-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-6-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-7" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-7-content-block-1" class="col-12" >
+
+    <div id="section-7-content-block-1-header" class="alert alert-secondary" ><h3>
+          foundation_type
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-7-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-7-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-8" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-8-content-block-1" class="col-12" >
+
+    <div id="section-8-content-block-1-header" class="alert alert-secondary" ><h3>
+          geo_level_1_id
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-8-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-8-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    minimum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    maximum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    mean may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    median may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    standard deviation may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li class="alert alert-warning" >
+                <span >
+                    <span class="badge badge-warning" >expect_column_quantile_values_to_be_between</span>(**{'column': 'geo_level_1_id', 'quantile_ranges': {'quantiles': [0.05, 0.25, 0.5, 0.75, 0.95], 'value_ranges': [[None, None], [None, None], [None, None], [None, None], [None, None]]}})
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    Column can match any distribution.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-9" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-9-content-block-1" class="col-12" >
+
+    <div id="section-9-content-block-1-header" class="alert alert-secondary" ><h3>
+          geo_level_2_id
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-9-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-9-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    minimum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    maximum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    mean may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    median may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    standard deviation may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li class="alert alert-warning" >
+                <span >
+                    <span class="badge badge-warning" >expect_column_quantile_values_to_be_between</span>(**{'column': 'geo_level_2_id', 'quantile_ranges': {'quantiles': [0.05, 0.25, 0.5, 0.75, 0.95], 'value_ranges': [[None, None], [None, None], [None, None], [None, None], [None, None]]}})
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    Column can match any distribution.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-10" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-10-content-block-1" class="col-12" >
+
+    <div id="section-10-content-block-1-header" class="alert alert-secondary" ><h3>
+          geo_level_3_id
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-10-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-10-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    minimum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    maximum value may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    mean may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    median may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    standard deviation may have any numerical value.
+                </span>
+            </li>
+    
+            
+        
+        <li class="alert alert-warning" >
+                <span >
+                    <span class="badge badge-warning" >expect_column_quantile_values_to_be_between</span>(**{'column': 'geo_level_3_id', 'quantile_ranges': {'quantiles': [0.05, 0.25, 0.5, 0.75, 0.95], 'value_ranges': [[None, None], [None, None], [None, None], [None, None], [None, None]]}})
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    Column can match any distribution.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-11" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-11-content-block-1" class="col-12" >
+
+    <div id="section-11-content-block-1-header" class="alert alert-secondary" ><h3>
+          ground_floor_type
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-11-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-11-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-12" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-12-content-block-1" class="col-12" >
+
+    <div id="section-12-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-12-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-12-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-13" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-13-content-block-1" class="col-12" >
+
+    <div id="section-13-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_agriculture
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-13-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-13-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-14" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-14-content-block-1" class="col-12" >
+
+    <div id="section-14-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_gov_office
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-14-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-14-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-15" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-15-content-block-1" class="col-12" >
+
+    <div id="section-15-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_health_post
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-15-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-15-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-16" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-16-content-block-1" class="col-12" >
+
+    <div id="section-16-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_hotel
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-16-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-16-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-17" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-17-content-block-1" class="col-12" >
+
+    <div id="section-17-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_industry
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-17-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-17-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-18" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-18-content-block-1" class="col-12" >
+
+    <div id="section-18-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_institution
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-18-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-18-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-19" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-19-content-block-1" class="col-12" >
+
+    <div id="section-19-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_other
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-19-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-19-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-20" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-20-content-block-1" class="col-12" >
+
+    <div id="section-20-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_rental
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-20-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-20-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-21" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-21-content-block-1" class="col-12" >
+
+    <div id="section-21-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_school
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-21-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-21-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-22" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-22-content-block-1" class="col-12" >
+
+    <div id="section-22-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_secondary_use_use_police
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-22-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-22-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-23" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-23-content-block-1" class="col-12" >
+
+    <div id="section-23-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_adobe_mud
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-23-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-23-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-24" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-24-content-block-1" class="col-12" >
+
+    <div id="section-24-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_bamboo
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-24-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-24-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-25" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-25-content-block-1" class="col-12" >
+
+    <div id="section-25-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_cement_mortar_brick
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-25-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-25-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-26" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-26-content-block-1" class="col-12" >
+
+    <div id="section-26-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_cement_mortar_stone
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-26-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-26-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-27" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-27-content-block-1" class="col-12" >
+
+    <div id="section-27-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_mud_mortar_brick
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-27-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-27-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-28" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-28-content-block-1" class="col-12" >
+
+    <div id="section-28-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_mud_mortar_stone
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-28-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-28-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-29" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-29-content-block-1" class="col-12" >
+
+    <div id="section-29-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_other
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-29-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-29-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-30" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-30-content-block-1" class="col-12" >
+
+    <div id="section-30-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_rc_engineered
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-30-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-30-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-31" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-31-content-block-1" class="col-12" >
+
+    <div id="section-31-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_rc_non_engineered
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-31-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-31-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-32" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-32-content-block-1" class="col-12" >
+
+    <div id="section-32-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_stone_flag
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-32-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-32-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-33" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-33-content-block-1" class="col-12" >
+
+    <div id="section-33-content-block-1-header" class="alert alert-secondary" ><h3>
+          has_superstructure_timber
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-33-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-33-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-34" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-34-content-block-1" class="col-12" >
+
+    <div id="section-34-content-block-1-header" class="alert alert-secondary" ><h3>
+          height_percentage
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-34-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-34-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >BIGINT</span> <span class="badge badge-secondary" >BYTEINT</span> <span class="badge badge-secondary" >DECIMAL</span> <span class="badge badge-secondary" >INT</span> <span class="badge badge-secondary" >INTEGER</span> <span class="badge badge-secondary" >IntegerType</span> <span class="badge badge-secondary" >LongType</span> <span class="badge badge-secondary" >SMALLINT</span> <span class="badge badge-secondary" >TINYINT</span> <span class="badge badge-secondary" >int</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-35" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-35-content-block-1" class="col-12" >
+
+    <div id="section-35-content-block-1-header" class="alert alert-secondary" ><h3>
+          land_surface_condition
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-35-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-35-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-36" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-36-content-block-1" class="col-12" >
+
+    <div id="section-36-content-block-1-header" class="alert alert-secondary" ><h3>
+          legal_ownership_status
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-36-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-36-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-37" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-37-content-block-1" class="col-12" >
+
+    <div id="section-37-content-block-1-header" class="alert alert-secondary" ><h3>
+          other_floor_type
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-37-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-37-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-38" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-38-content-block-1" class="col-12" >
+
+    <div id="section-38-content-block-1-header" class="alert alert-secondary" ><h3>
+          plan_configuration
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-38-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-38-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-39" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-39-content-block-1" class="col-12" >
+
+    <div id="section-39-content-block-1-header" class="alert alert-secondary" ><h3>
+          position
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-39-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-39-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+          
+<div id="section-40" class="ge-section container-fluid">
+    <div class="row" >
+        
+
+<div id="section-40-content-block-1" class="col-12" >
+
+    <div id="section-40-content-block-1-header" class="alert alert-secondary" ><h3>
+          roof_type
+      </h3>
+    </div>
+
+</div>
+        
+
+<div id="section-40-content-block-2" class="col-12" >
+
+    
+
+<ul id="section-40-content-block-2-body" >
+    
+            
+        
+        <li >
+                <span >
+                    value types must belong to this set: <span class="badge badge-secondary" >CHAR</span> <span class="badge badge-secondary" >StringType</span> <span class="badge badge-secondary" >TEXT</span> <span class="badge badge-secondary" >VARCHAR</span> <span class="badge badge-secondary" >str</span> <span class="badge badge-secondary" >string</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any number of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    may have any fraction of unique values.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not be null, at least <span class="badge badge-secondary" >50</span> % of the time.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must belong to this set: [ ].
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    values must not match this regular expression: <span class="badge badge-secondary" >^\s+|\s+$</span>.
+                </span>
+            </li>
+    
+            
+        
+        <li >
+                <span >
+                    distinct values must belong to a set, but that set is not specified.
+                </span>
+            </li>
+    
+</ul>
+
+</div>
+        
+    </div>
+</div>
+        
+        </div>
+        <div class="d-block d-sm-none col-12">
+          <div class="mb-4">
+  <div class="col-12">
+    <div class="row">
+      <img
+        src="https://great-expectations.readthedocs.io/en/latest/_images/generic_dickens_protagonist.png"
+        style="
+          width: 200px;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+    </div>
+  </div>
+  <div class="col-12">
+    <p>
+      Documentation autogenerated using
+      <a href="https://greatexpectations.io">Great Expectations</a>.
+    </p>
+  </div>
+  <div class="alert alert-danger col-12" role="alert">
+      This is a beta feature! Expect changes in API, behavior, and design.
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
