@@ -9,8 +9,12 @@ def split_df(whole_df: pd.DataFrame, ratio: list, processed_loc: str):
     # Sample from whole df then split on provided ratios
     df_len = len(whole_df)
     first_chunk_end = int(df_len * ratio[0])
-    third_chunk_start = int(df_len * ratio[2])
+    third_chunk_start = int(df_len * (1.0 - ratio[2]))
     train, validate, test = np.split(whole_df.sample(frac=1), [first_chunk_end, third_chunk_start])
+
+    #Validate same number of rows as well as all buildings accoutned for
+    assert df_len == sum([len(train), len(validate), len(test)])
+    assert set(whole_df.index) == set(train.index) | set(validate.index) | set(test.index)
 
     #save split data into csvs
     train.to_csv(processed_loc + "train.csv")
