@@ -27,8 +27,10 @@
 |   |
 |   |- utils		    ->  General purpose scripts
 |   |   |- performance_score.py
+|   |   |- grab_data.py
 |
 |- requirements.txt
+|- setup.py
 ```
 
 
@@ -38,6 +40,7 @@
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
+pip install -e .
 '''
 
 ## Scripts
