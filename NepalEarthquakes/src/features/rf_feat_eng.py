@@ -16,7 +16,6 @@ def eng_features(df: pd.DataFrame, categorical: list, ordinal: list, continuous:
     #Categorical
     df = one_hot_ec(df, categorical)
 
-    print(df)
     #Ordinal
 
     return df
@@ -31,4 +30,5 @@ if __name__ == '__main__':
     ordinal = []
     drop_eng = ['geo_level_2_id', 'geo_level_3_id']
     train_df = pd.read_csv(train_loc)
-    eng_features(train_df, categorical, ordinal, continuous, drop_eng)
+    feature_df = eng_features(train_df, categorical, ordinal, continuous, drop_eng)
+    feature_df.to_csv(processed_loc + "rf_train.csv")
