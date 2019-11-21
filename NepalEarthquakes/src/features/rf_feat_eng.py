@@ -9,7 +9,12 @@ def one_hot_ec(df: pd.DataFrame, to_oh: list):
 def binary_ec(df, to_bin: list):
     return
 
-def eng_features(df: pd.DataFrame, categorical: list, ordinal: list, continuous: list):
+def eng_features(df: pd.DataFrame):
+    #Get cols to eng
+    continuous = ["count_floors_pre_eq", "age","area_percentage", "height_percentage"]
+    categorical = ["roof_type", "ground_floor_type", "other_floor_type", "position", "plan_configuration"]
+    ordinal = []
+
     #Drop columns not used in model
     all_cols = categorical + ordinal + continuous
     eng_df = df[all_cols]
@@ -30,16 +35,4 @@ def eng_features(df: pd.DataFrame, categorical: list, ordinal: list, continuous:
 
 
 if __name__ == '__main__':
-    # Set data locaitons
-    processed_path = "../../Data/processed/"
-    interim_path = "../../Data/interim/"
-    extension = 'csv'
-    os.chdir(interim_path)
-    result = glob.glob('*.{}'.format(extension))
-    continuous = ["count_floors_pre_eq", "age","area_percentage", "height_percentage"]
-    categorical = ["roof_type", "ground_floor_type", "other_floor_type", "position", "plan_configuration"]
-    ordinal = []
-    for file in result:
-        for_eng_df = pd.read_csv(interim_path + file, index_col="building_id")
-        feature_df = eng_features(for_eng_df, categorical, ordinal, continuous)
-        feature_df.to_csv(processed_path + "rf_eng_"+file)
+    pass
