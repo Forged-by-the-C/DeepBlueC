@@ -23,7 +23,7 @@ def eng_features(df: pd.DataFrame, categorical: list, ordinal: list, continuous:
 
 if __name__ == '__main__':
     # Set data locaitons
-    train_loc = "../../Data/interim/train.csv"
+    train_loc = "../../Data/interim/test.csv"
     processed_loc = "../../Data/processed/"
     continuous = ["count_floors_pre_eq", "age","area_percentage", "height_percentage"]
     categorical = ["geo_level_1_id", "roof_type", "ground_floor_type", "other_floor_type", "position", "plan_configuration"]
@@ -31,4 +31,4 @@ if __name__ == '__main__':
     drop_eng = ['geo_level_2_id', 'geo_level_3_id']
     train_df = pd.read_csv(train_loc)
     feature_df = eng_features(train_df, categorical, ordinal, continuous, drop_eng)
-    feature_df.to_csv(processed_loc + "rf_train.csv")
+    feature_df.to_csv(processed_loc + "rf_test.csv")
