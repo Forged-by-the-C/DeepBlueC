@@ -75,7 +75,6 @@ def openFiles(sub, train):
         
     return submit_file, training_file
 
-
 ################################## Main ##################################
 
 if __name__=='__main__':
