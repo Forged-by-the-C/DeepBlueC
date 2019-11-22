@@ -6,31 +6,33 @@ from sklearn.ensemble import RandomForestClassifier
 import src.features.rf_feat_eng as rf_features
 from sklearn.metrics import f1_score
 
-def grab_data(split="train", processed=False):
+def grab_data(split="train"):
     '''
     input split: str, of ["train", "val", "test"]
     output X: numpy.ndarray of shape (n_smaples, n_features)
     output y: numpy.ndarray of shape (n_samples, )
     '''
-    features_df, label_series = gd.grab_data("interim", "train")
-    features_df = rf_features(features_df)
+    features_df, label_series = gd.grab_data("interim", split)
+    features_df = rf_features.eng_features(features_df)
     X = features_df.values
     y = label_series.values
     return X, y
 
 def grab_submission_data():
     features_df = gd.grab_data("raw", "test_values")
-    features_df = features_df[training_cols]
+    features_df = rf_features.eng_features(features_df)
     return features_df
 
-def train_rf(X,y):
+def train_rf(X,y, n_estimators, max_depth):
     '''
     input X: numpy.ndarray of shape (n_smaples, n_features)
     input y: numpy.ndarray of shape (n_samples, )
+    input n_estimators: int, number of estimators in random forest
+    input max_depth: int, max depth of trees
     output: trained model
     '''
-    clf = RandomForestClassifier(n_estimators=100, max_depth=2,
-                                          random_state=0)
+    clf = RandomForestClassifier(n_estimators=n_estimators, 
+            max_depth=max_depth, random_state=1)
     clf.fit(X, y)
     return clf
 
@@ -42,11 +44,6 @@ def save_model(clf, file_path):
     '''
     with open(file_path, 'wb+') as f:
         pickle.dump(clf, f)
-
-def train_and_save():
-    X,y = grab_data("train")
-    clf = train_rf(X,y)
-    save_model(clf, 'scratch.pkl')
 
 def load_model(file_path):
     with open(file_path, 'rb+') as f:
@@ -67,17 +64,22 @@ def load_and_score(model_file_path):
     g = clf.predict(X)
     print(f1_score(y_true=y, y_pred=g, average='micro'))
 
-def train():
-    X,y = grab_data("train", processed=True)
-    clf = train_rf(X,y)
+def train(model_file_path, n_estimators, max_depth):
+    X,y = grab_data("train")
+    clf = train_rf(X,y, n_estimators, max_depth)
     g = clf.predict(X)
     print("Training Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
-    X,y = grab_data("val", processed=True)
+    X,y = grab_data("val")
     g = clf.predict(X)
     print("Val Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
-    save_model(clf, 'first_feature_eng.pkl')
+    save_model(clf, model_file_path)
 
 if __name__=='__main__':
-    #load_and_predict_submission('scratch.pkl')
-    #model_file_path = 'scratch.pkl'
-    train()
+    month = 11
+    day = 21
+    n_estimators = 100
+    max_depth = 12
+    model_file_path = 'rf_{}_{}_{}_{}.pkl'.format(n_estimators, max_depth, month, day)
+    #train(model_file_path, n_estimators, max_depth)
+    #load_and_score(model_file_path)
+    load_and_predict_submission(model_file_path)
