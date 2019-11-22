@@ -4,21 +4,16 @@ import pickle
 import src.utils.grab_data as gd
 from sklearn.ensemble import RandomForestClassifier
 import src.features.rf_feat_eng as rf_features
+from sklearn.metrics import f1_score
 
-#TODO: Score model with Roger's script
-#TODO: Have RF use more than just a few columns, see 
-
-
-def grab_train_data():
+def grab_data(split="train", processed=False):
     '''
+    input split: str, of ["train", "val", "test"]
     output X: numpy.ndarray of shape (n_smaples, n_features)
     output y: numpy.ndarray of shape (n_samples, )
     '''
     features_df, label_series = gd.grab_data("interim", "train")
-
-    #Engineer the features
     features_df = rf_features(features_df)
-
     X = features_df.values
     y = label_series.values
     return X, y
@@ -49,7 +44,7 @@ def save_model(clf, file_path):
         pickle.dump(clf, f)
 
 def train_and_save():
-    X,y = grab_train_data()
+    X,y = grab_data("train")
     clf = train_rf(X,y)
     save_model(clf, 'scratch.pkl')
 
@@ -66,18 +61,23 @@ def load_and_predict_submission(model_file_path):
     y_df = pd.DataFrame(g, index=f_df.index, columns=["damage_grade"])
     y_df.to_csv('submission.csv')
 
-def example():
-    from sklearn.datasets import make_classification
+def load_and_score(model_file_path):
+    clf = load_model(model_file_path)
+    X,y = grab_data(split="val")
+    g = clf.predict(X)
+    print(f1_score(y_true=y, y_pred=g, average='micro'))
 
-    X, y = make_classification(n_samples=1000, n_features=4,
-                                        n_informative=2, n_redundant=0,
-                                        random_state=0, shuffle=False)
-    clf = RandomForestClassifier(n_estimators=100, max_depth=2,
-                                          random_state=0)
-    clf.fit(X, y)
-
-    print(clf.feature_importances_)
-    print(clf.predict([[0, 0, 0, 0]]))
+def train():
+    X,y = grab_data("train", processed=True)
+    clf = train_rf(X,y)
+    g = clf.predict(X)
+    print("Training Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
+    X,y = grab_data("val", processed=True)
+    g = clf.predict(X)
+    print("Val Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
+    save_model(clf, 'first_feature_eng.pkl')
 
 if __name__=='__main__':
-    load_and_predict_submission('scratch.pkl')
+    #load_and_predict_submission('scratch.pkl')
+    #model_file_path = 'scratch.pkl'
+    train()
