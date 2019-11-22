@@ -14,7 +14,7 @@ class model_wrapper():
         for name in file_name_list:
             file_name += name + "_"
         self.model_file_path = dir_w.construct_dir_path(project_dir="NepalEarthquakes",
-                sub_dir="model") + file_name + ".pkl"
+                sub_dir="models") + file_name + ".pkl"
 
     def load_data(self, split="train"):
         '''
@@ -47,7 +47,7 @@ class model_wrapper():
         return clf
 
     def save_model(self):
-        with open(self.model_file_path, 'wb+') as f:
+        with open(self.model_file_path, 'wb') as f:
             pickle.dump(self.clf, f)
 
     def load_model(self):
@@ -55,7 +55,7 @@ class model_wrapper():
             self.clf = pickle.load(f)
 
     def load_and_predict_submission(self):
-        self.load_model(self.model_file_path)
+        self.load_model()
         f_df = self.grab_submission_data()
         X = f_df.values
         g = self.clf.predict(X)
@@ -63,8 +63,8 @@ class model_wrapper():
         y_df.to_csv('submission.csv')
 
     def load_and_score(self):
-        self.load_model(model_file_path)
-        X,y = self.grab_data(split="val")
+        self.load_model()
+        X,y = self.load_data(split="val")
         g = self.clf.predict(X)
         print(f1_score(y_true=y, y_pred=g, average='micro'))
 
