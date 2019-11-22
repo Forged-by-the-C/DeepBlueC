@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-
 from src.utils.dir_helper import construct_dir_path
 
 def construct_data_path(sub_dir, data_set):
@@ -10,17 +9,8 @@ def construct_data_path(sub_dir, data_set):
     input data_set: str
     output: full path to data_set.csv
     '''
-    cwd_path = os.getcwd().split('/')
-    path_to_file = []
-    for d in cwd_path:
-        path_to_file.append(d)
-        if d == 'NepalEarthquakes':
-            break
-    path_to_file.append('Data')
-    path_to_file.append(sub_dir)
-    path_to_file.append(data_set + '.csv')
-    file_path = os.path.join(*path_to_file)
-    return '/' + file_path
+    return construct_dir_path(project_dir="NepalEarthquakes",
+            sub_dir="Data") + "{}/{}.csv".format(sub_dir, data_set)
 
 def load_df(file_path):
     '''
@@ -40,7 +30,7 @@ def load_df(file_path):
         return df
 
 def grab_data(sub_dir, data_set):
-    return load_df(construct_path(sub_dir, data_set))
+    return load_df(construct_data_path(sub_dir, data_set))
 
 if __name__=='__main__':
     pass

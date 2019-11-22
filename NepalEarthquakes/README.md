@@ -36,27 +36,35 @@
 
 ##Setup
 
-'''
+```
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 pip install -e .
-'''
+```
 
 ## Scripts
 
-'''
+```
 python data_summary.py
-'''
+```
 This is print to console the information (filename, shape, columns, and the first 5 rows) 
 of each csv in the Data/raw directory.
 
-'''
+```
 python data_split.py
-'''
+```
 This is to split the provided data-set into train, dev, and test and place the result in the Data/processed folder.
 
-'''
+```
 python rf_feat_eng.py
-'''
+```
 This takes the train data and does some feature engineering to make it ready for modeling.
+
+## Submission History
+
+| Date | Score | Description |
+|------|-------|-------------|
+|11/20/2019|0.5670| Initial with default random forest|
+|11/22/2019|0.5670| Default random forest with baseline feature engineering of 1-hot encoding|
+|11/22/2019|0.5852| Random Forest with max depth 12 and 100 estimators|
