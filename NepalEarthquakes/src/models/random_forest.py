@@ -3,10 +3,8 @@ import pandas as pd
 import pickle
 import src.utils.grab_data as gd
 from sklearn.ensemble import RandomForestClassifier
+import src.features.rf_feat_eng as rf_features
 from sklearn.metrics import f1_score
-
-#TODO: Have RF use more than just a few columns, see 
-training_cols = ['count_floors_pre_eq', 'age', 'area_percentage', 'height_percentage']
 
 def grab_data(split="train", processed=False):
     '''
@@ -14,12 +12,8 @@ def grab_data(split="train", processed=False):
     output X: numpy.ndarray of shape (n_smaples, n_features)
     output y: numpy.ndarray of shape (n_samples, )
     '''
-    if processed:
-        features_df, label_series = gd.grab_data("processed", "rf_" + split)
-        print(features_df.head())
-    else:
-        features_df, label_series = gd.grab_data("interim", split)
-        features_df = features_df[training_cols]
+    features_df, label_series = gd.grab_data("interim", "train")
+    features_df = rf_features(features_df)
     X = features_df.values
     y = label_series.values
     return X, y
