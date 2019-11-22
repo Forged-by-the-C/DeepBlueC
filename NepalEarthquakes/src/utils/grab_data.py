@@ -1,7 +1,9 @@
 import os
 import pandas as pd
 
-def construct_path(sub_dir, data_set):
+from src.utils.dir_helper import construct_dir_path
+
+def construct_data_path(sub_dir, data_set):
     ''' 
     Data/<sub_dir>/<data_set>.csv
     input sub_dir: str

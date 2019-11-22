@@ -76,10 +76,8 @@ def train(model_file_path, n_estimators, max_depth):
 
 if __name__=='__main__':
     month = 11
-    day = 21
+    day = 22
+    model_prefix = "xg"
     n_estimators = 100
     max_depth = 12
-    model_file_path = 'rf_{}_{}_{}_{}.pkl'.format(n_estimators, max_depth, month, day)
-    #train(model_file_path, n_estimators, max_depth)
-    #load_and_score(model_file_path)
-    load_and_predict_submission(model_file_path)
+    model_file_path = '{}_{}_{}_{}_{}.pkl'.format(model_prefix,n_estimators, max_depth, month, day)
