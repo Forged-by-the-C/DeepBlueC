@@ -9,12 +9,20 @@ from sklearn.metrics import f1_score
 
 class model_wrapper():
 
-    def __init__(self, file_name_list = ["rf", "12", "100"]):
-        file_name = ""
-        for name in file_name_list:
-            file_name += name + "_"
+    def __init__(self, param_dict = {"name":"init"}):
+        self.param_dict = param_dict
+        self.param_string = self.gen_param_string(self.param_dict)
+        self.gen_model_file_path()
+
+    def gen_param_string(self, param_dict):
+        param_string = ""
+        for k in param_dict:
+            param_string += "{}_{}_".format(k, param_dict[k])
+        return param_string
+
+    def gen_model_file_path(self):
         self.model_file_path = dir_w.construct_dir_path(project_dir="NepalEarthquakes",
-                sub_dir="models") + file_name + ".pkl"
+                sub_dir="models") + self.param_string + ".pkl"
 
     def load_data(self, split="train"):
         '''
@@ -27,6 +35,9 @@ class model_wrapper():
         X = features_df.values
         y = label_series.values
         return X, y
+
+    def trim(self, X, y,num=100):
+        return X[:num], y[:num]
 
     def grab_submission_data(self):
         features_df = data_w.grab_data("raw", "test_values")
