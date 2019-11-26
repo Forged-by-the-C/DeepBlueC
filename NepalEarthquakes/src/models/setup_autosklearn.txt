@@ -1,7 +1,11 @@
+
+====AWS=====
 sudo yum update -y
 sudo yum install -y docker
 sudo service docker start
 sudo docker pull mfeurer/auto-sklearn
 sudo docker ps -a
-docker run  -it -p 8080:8080  -it mfeurer/auto-sklearn
-> (in docker) jupyter notebook --ip=0.0.0.0 --port=8080 --allow-root
+=====Local====
+docker run  -it -p 8080:8080  mfeurer/auto-sklearn jupyter notebook --ip=0.0.0.0 --port=8080 --allow-root
+docker run  -it -p 8080:8080  --mount type=bind,source="$(pwd)"/target,target=/app mfeurer/auto-sklearn jupyter notebook --ip=0.0.0.0 --port=8080 --allow-root
+docker run  -it -p 8080:8080  --mount type=bind,source="$(pwd)",target=/app mfeurer/auto-sklearn jupyter notebook --ip=0.0.0.0 --port=8080 --allow-root
