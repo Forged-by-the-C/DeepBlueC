@@ -6,6 +6,7 @@ import src.utils.dir_helper as dir_w
 from sklearn.ensemble import RandomForestClassifier
 import src.features.rf_feat_eng as rf_features
 from sklearn.metrics import f1_score
+import time
 
 class model_wrapper():
 
@@ -79,15 +80,24 @@ class model_wrapper():
         g = self.clf.predict(X)
         print(f1_score(y_true=y, y_pred=g, average='micro'))
 
+    def print_cv_results(self):
+        cvres = self.clf.cv_results_
+        for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
+            print(mean_score, params)
+
     def train_and_score(self):
         X,y = self.load_data("train")
+        tic = time.time()
         self.clf = self.train(X,y)
+        print("Time to train: {:.0f} seconds".format(time.time() - tic))
         g = self.clf.predict(X)
         print("Training Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
         X,y = self.load_data("val")
         g = self.clf.predict(X)
         print("Val Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
         self.save_model()
+        if "model" in self.param_dict.keys():
+            self.print_cv_results()
 
 if __name__=='__main__':
     pass
