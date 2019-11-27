@@ -4,7 +4,8 @@ import pandas as pd
 from sklearn.metrics import f1_score
 from src.utils.model_wrapper import model_wrapper
 import autosklearn.classification
-import time
+
+run_time_s = 1 * 5 * 60
 
 class auto_sk(model_wrapper):
 
@@ -14,17 +15,14 @@ class auto_sk(model_wrapper):
             input y: numpy.ndarray of shape (n_samples, )
             output: trained model
             '''
-            tic = time.time()
             print("Starting Training")
-            input()
-            clf = autosklearn.classification.AutoSklearnClassifier()
+            clf = autosklearn.classification.AutoSklearnClassifier(time_left_for_this_task=run_time_s)
             clf.fit(X, y)
-            print("Training finished. Took {:.0f}s".format(time.time() - tic))
             return clf
 
 
 if __name__ == "__main__":
-    mod = auto_sk({"auto":"sk"})
+    mod = auto_sk({"auto":"sk1"})
     mod.train_and_score()
     #mod.load_and_score()
     #mod.load_and_predict_submission()
