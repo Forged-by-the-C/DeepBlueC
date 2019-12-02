@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-def split_df(whole_df: pd.DataFrame, ratio: list, processed_loc: str):
+def split_df(whole_df: pd.DataFrame, ratio: list, interim_loc: str):
     # Set random seed for repeatability
     np.random.seed(2016)
 
@@ -17,9 +17,9 @@ def split_df(whole_df: pd.DataFrame, ratio: list, processed_loc: str):
     assert set(whole_df.index) == set(train.index) | set(validate.index) | set(test.index)
 
     #save split data into csvs
-    train.to_csv(processed_loc + "train.csv")
-    validate.to_csv(processed_loc + "val.csv")
-    test.to_csv(processed_loc + "test.csv")
+    train.to_csv(interim_loc + "train.csv")
+    validate.to_csv(interim_loc + "val.csv")
+    test.to_csv(interim_loc + "test.csv")
     return
 
 def combine_vals_labels(label_df: pd.DataFrame, value_df: pd.DataFrame, primary_key: str):
@@ -36,10 +36,11 @@ if __name__ == '__main__':
     split_ratio = [.8, .1, .1]
     train_vals_loc = "../../Data/raw/train_values.csv"
     train_labels_loc = "../../Data/raw/train_labels.csv"
-    processed_loc = "../../Data/processed/"
+    interim_loc = "../../Data/interim/"
 
     #Combine the values with their labels
+    #not needed if data
     whole_df = combine_vals_labels(pd.read_csv(train_vals_loc), pd.read_csv(train_labels_loc), "building_id")
     
     #Pass combined df to split and save as csvs in processed file
-    split_df(whole_df, split_ratio, processed_loc)
+    split_df(whole_df, split_ratio, interim_loc)
