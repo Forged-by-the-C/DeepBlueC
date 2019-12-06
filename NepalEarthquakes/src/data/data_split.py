@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from src.features.feat_eng import rf_features
 
 
 def split_df(whole_df: pd.DataFrame, ratio: list, interim_loc: str):
@@ -41,6 +42,10 @@ if __name__ == '__main__':
     #Combine the values with their labels
     #not needed if data
     whole_df = combine_vals_labels(pd.read_csv(train_vals_loc), pd.read_csv(train_labels_loc), "building_id")
+
+    whole_df = rf_features(whole_df, "damage_grade", 
+                                to_skip=["geo_level_2_id", "geo_level_3_id"], 
+                                numm_cats=["geo_level_1_id"]) 
     
     #Pass combined df to split and save as csvs in processed file
     split_df(whole_df, split_ratio, interim_loc)
