@@ -4,7 +4,7 @@ import pickle
 import src.utils.data_helper as data_w
 import src.utils.dir_helper as dir_w
 from sklearn.ensemble import RandomForestClassifier
-import src.features.rf_feat_eng as rf_features
+from src.features.feat_eng import rf_features
 from sklearn.metrics import f1_score
 import time
 
@@ -32,7 +32,10 @@ class model_wrapper():
         output y: numpy.ndarray of shape (n_samples, )
         '''
         features_df, label_series = data_w.grab_data("interim", split)
-        features_df = rf_features.eng_features(features_df)
+        #features_df = rf_features(features_df.merge(label_series,left_index=True,
+        #                            right_index=True), "damage_grade", 
+        #                            to_skip=["geo_level_2_id", "geo_level_3_id"], 
+        #                            numm_cats=["geo_level_1_id"]) 
         X = features_df.values
         y = label_series.values
         return X, y
@@ -40,9 +43,10 @@ class model_wrapper():
     def trim(self, X, y,num=100):
         return X[:num], y[:num]
 
+    #TODO: rf_features: need to decide features before submission
     def grab_submission_data(self):
         features_df = data_w.grab_data("raw", "test_values")
-        features_df = rf_features.eng_features(features_df)
+        #features_df = rf_features.eng_features(features_df)
         return features_df
 
     def train(self, X,y):
@@ -89,13 +93,13 @@ class model_wrapper():
         X,y = self.load_data("train")
         tic = time.time()
         self.clf = self.train(X,y)
+        self.save_model()
         print("Time to train: {:.0f} seconds".format(time.time() - tic))
         g = self.clf.predict(X)
         print("Training Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
         X,y = self.load_data("val")
         g = self.clf.predict(X)
         print("Val Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
-        self.save_model()
         if "model" in self.param_dict.keys():
             self.print_cv_results()
 

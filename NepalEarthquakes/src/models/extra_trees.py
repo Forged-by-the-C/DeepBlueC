@@ -13,6 +13,8 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
+train_space = 15
+
 class extra_trees(model_wrapper):
 
     def train(self, X,y):
@@ -24,7 +26,7 @@ class extra_trees(model_wrapper):
         pipe = make_pipeline(ExtraTreesClassifier(random_state=2018))
         param_grid = {'extratreesclassifier__n_estimators':range(50,150),
                         'extratreesclassifier__min_samples_leaf':range(3,10)}
-        clf = RandomizedSearchCV(pipe, param_grid, scoring='f1_micro', n_iter=15, cv=5, verbose=1, n_jobs=-1)
+        clf = RandomizedSearchCV(pipe, param_grid, scoring='f1_micro', n_iter=train_space, cv=5, verbose=1, n_jobs=-1)
         clf.fit(X, y)
         print("Best Params: {}".format(clf.best_params_))
         return clf
