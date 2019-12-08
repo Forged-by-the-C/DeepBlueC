@@ -92,8 +92,11 @@ class simple_nn(model_wrapper):
         labels = np.argmax(y_pred.detach().numpy(), axis=1)
         train_score = f1_score(y_true=y_train, y_pred=labels, average='micro')
         print('Cross val F1 score: {}'.format(train_score))
+        conf_matrix = self.gen_conf_matrix(y_train, labels)
+        print('Confusion Matrix: \n', conf_matrix)
+        self.plot_conf_matrix(conf_matrix)
 
 if __name__ == "__main__":
     mod = simple_nn({"name":"nn1"})
-    mod.train()
-    #mod.load_and_score()
+    #mod.train()
+    mod.load_and_score()

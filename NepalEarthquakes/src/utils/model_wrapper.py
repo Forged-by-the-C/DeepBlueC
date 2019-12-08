@@ -89,11 +89,28 @@ class model_wrapper():
         X,y = self.load_data(split="val")
         g = self.clf.predict(X)
         print("Cross Val Score on {} is {:.4f}".format(self.param_string, f1_score(y_true=y, y_pred=g, average='micro')))
+        print(self.gen_conf_matrix(y, g))
+
+    def gen_conf_matrix(self, y_true, y_pred):
+        '''
+        input y_true: numpy ndarray
+        input y_pred: numpy ndarray
+        return: numpy ndarray, conf matrix 
+        '''
+        from sklearn.metrics import confusion_matrix
+        return confusion_matrix(y_true, y_pred, normalize='all')
+
+    def plot_conf_matrix(self, conf_matrix):
+        '''
+        input: numpy ndarray, conf_matrix
+        '''
         plt_path = self.gen_conf_plot_file_path()
         import matplotlib.pyplot as plt
-        from sklearn.metrics import plot_confusion_matrix
-        disp = plot_confusion_matrix(self.clf, X, y,normalize='all')
-        print("Confusion Matrix: \n", disp.confusion_matrix)
+        #from sklearn.metrics import plot_confusion_matrix
+        #disp = plot_confusion_matrix(self.clf, X, y,normalize='all')
+        from sklearn.metrics import ConfusionMatrixDisplay
+        display_labels = [i + 1 for i in range(0, conf_matrix.shape[0])]
+        ConfusionMatrixDisplay(confusion_matrix=conf_matrix,display_labels=display_labels).plot()
         plt.savefig(plt_path)
 
     def print_cv_results(self):
