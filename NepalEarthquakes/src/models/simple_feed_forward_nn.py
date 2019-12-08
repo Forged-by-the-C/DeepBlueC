@@ -93,8 +93,7 @@ class simple_nn(model_wrapper):
         train_score = f1_score(y_true=y_train, y_pred=labels, average='micro')
         print('Cross val F1 score: {}'.format(train_score))
 
-
 if __name__ == "__main__":
     mod = simple_nn({"name":"nn1"})
-    #mod.train()
-    mod.load_and_score()
+    mod.train()
+    #mod.load_and_score()
