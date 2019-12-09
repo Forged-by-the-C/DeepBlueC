@@ -123,6 +123,7 @@ class model_wrapper():
         #TODO: If json does exist read it in
         #TODO: Add entry: model name, train score, val score, time to train, params
         #TODO: Write JSON to File
+        pass
 
     def train_and_score(self, n_iter=1, cv=5, n_jobs=1, save_model=True):
         '''
