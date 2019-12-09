@@ -14,8 +14,9 @@ from src.utils.model_wrapper import model_wrapper
 '''
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
-train_space = 15
-cross_folds = 5
+
+train_space = 1
+cross_folds = 2
 
 class random_forest(model_wrapper):
 

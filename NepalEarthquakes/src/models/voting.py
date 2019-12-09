@@ -37,13 +37,13 @@ class voting(model_wrapper):
         output: trained model
         '''
         self.gen_clf_tuple_list()
-        clf = VotingClassifier(estimators=self.clf_tuple_list, voting='hard')
-        clf = clf.fit(X, y, n_jobs=n_jobs)
+        clf = VotingClassifier(estimators=self.clf_tuple_list, voting='hard', n_jobs=n_jobs)
+        clf = clf.fit(X, y)
         return clf
 
 if __name__ == "__main__":
     mod = voting({"ensemble":"voting"})
     #mod.gen_clf_tuple_list()
-    mod.train_and_score(n_jobs=-1, save_model=True)
-    #mod.load_and_score()
+    #mod.train_and_score(n_jobs=-1, save_model=True)
+    mod.load_and_score()
     #mod.load_and_predict_submission()
