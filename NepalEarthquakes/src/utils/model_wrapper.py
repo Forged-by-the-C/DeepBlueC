@@ -118,6 +118,12 @@ class model_wrapper():
         for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
             print(mean_score, params)
 
+    def log_results(self):
+        #TODO: If json doesnt exist, write
+        #TODO: If json does exist read it in
+        #TODO: Add entry: model name, train score, val score, time to train, params
+        #TODO: Write JSON to File
+
     def train_and_score(self, n_iter=1, cv=5, n_jobs=1, save_model=True):
         '''
         input n_iter: int, number of training iterations if doing a hyper parameter search
