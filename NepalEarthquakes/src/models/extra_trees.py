@@ -38,6 +38,6 @@ class extra_trees(model_wrapper):
 
 if __name__ == "__main__":
     mod = extra_trees({"model":"et"})
-    #mod.train_and_score(n_iter=1, cv=5, n_jobs=-1, save_model=False)
-    mod.load_and_score()
+    mod.train_and_score(n_iter=train_space, cv=5, n_jobs=-1, save_model=True)
+    #mod.load_and_score()
     #mod.load_and_predict_submission()

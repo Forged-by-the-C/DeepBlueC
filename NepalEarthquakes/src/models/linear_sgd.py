@@ -33,6 +33,6 @@ class sgd(model_wrapper):
 
 if __name__ == "__main__":
     mod = sgd({"model":"sgd"})
-    mod.train_and_score(n_iter=1, cv=5, n_jobs=-1, save_model=False)
+    mod.train_and_score(n_iter=4, cv=5, n_jobs=-1, save_model=True)
     #mod.load_and_score()
     #mod.load_and_predict_submission()

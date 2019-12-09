@@ -37,6 +37,7 @@ class Feedforward(torch.nn.Module):
         output = self.softmax(output)
         return output
 
+
 class simple_nn(model_wrapper):
 
     def init_model(self, input_size, output_size=3, load=0):
@@ -46,7 +47,9 @@ class simple_nn(model_wrapper):
 
     def train(self):
         epochs = int(input("Num Epochs?\nInput: "))
+        epochs = 400
         X,y = self.load_data("train")
+        #TODO: Use torch.utils.datasetloader
         x_train = torch.FloatTensor(X)
         #Since y in [1,3] -> [0,2]
         y_train = torch.LongTensor(y-1)
@@ -54,9 +57,8 @@ class simple_nn(model_wrapper):
         load = int(input("0: for new model to train \n1: for load model to train\nInput: "))
         self.init_model(features, 3, load)
         criterion = torch.nn.CrossEntropyLoss()
-        #TODO: Learning Rate Scheduler?
         optimizer = torch.optim.Adadelta(self.model.parameters())
-        # Put model in training mode
+        #scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', verbose=True)
         train_start = time.time()
         self.model.train()
         for epoch in range(1, epochs):
@@ -71,7 +73,9 @@ class simple_nn(model_wrapper):
             # Backward pass
             loss.backward()
             optimizer.step()
-            if epoch % 20 == 0:
+            #scheduler.step(loss.item())
+            #if epoch % 20 == 0:
+            if 0:
                 #Dynamically update loss weights based on Confusion matrix
                 conf_matrix = self.gen_conf_matrix(y_train, labels)
                 error = np.sum(conf_matrix*(1 - np.identity(conf_matrix.shape[0])), axis=1)
@@ -105,6 +109,6 @@ class simple_nn(model_wrapper):
         #print(np.sum(conf_matrix*(1 - np.identity(conf_matrix.shape[0])), axis=1))
 
 if __name__ == "__main__":
-    mod = simple_nn({"name":"nn1_weighted"})
-    #mod.train()
-    mod.load_and_score()
+    mod = simple_nn({"name":"nn1_beat_sk"})
+    mod.train()
+    #mod.load_and_score()
