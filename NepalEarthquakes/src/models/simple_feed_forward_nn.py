@@ -71,6 +71,13 @@ class simple_nn(model_wrapper):
             # Backward pass
             loss.backward()
             optimizer.step()
+            if epoch % 20 == 0:
+                #Dynamically update loss weights based on Confusion matrix
+                conf_matrix = self.gen_conf_matrix(y_train, labels)
+                error = np.sum(conf_matrix*(1 - np.identity(conf_matrix.shape[0])), axis=1)
+                print("Epoch: {} Error: {}".format(epoch, error))
+                weight = torch.from_numpy(error).float()
+                criterion = torch.nn.CrossEntropyLoss(weight=weight)
             if epoch % 1000 == 0:
                 self.save_model()
         save = int(input("Save model: 1 or 0?\nInput: "))
@@ -95,8 +102,9 @@ class simple_nn(model_wrapper):
         conf_matrix = self.gen_conf_matrix(y_train, labels)
         print('Confusion Matrix: \n', conf_matrix)
         self.plot_conf_matrix(conf_matrix)
+        #print(np.sum(conf_matrix*(1 - np.identity(conf_matrix.shape[0])), axis=1))
 
 if __name__ == "__main__":
-    mod = simple_nn({"name":"nn1"})
+    mod = simple_nn({"name":"nn1_weighted"})
     #mod.train()
     mod.load_and_score()
