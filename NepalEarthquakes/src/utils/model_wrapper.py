@@ -92,8 +92,10 @@ class model_wrapper():
         X,y = self.load_data(split="val")
         g = self.clf.predict(X)
         self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
-        self.results_dict["confusion_matrix"] = self.gen_conf_matrix(y, g).tolist()
+        conf_matrix = self.gen_conf_matrix(y, g)
+        self.results_dict["confusion_matrix"] = conf_matrix.tolist()
         self.log_results()
+        self.plot_conf_matrix(conf_matrix)
 
     def gen_conf_matrix(self, y_true, y_pred):
         '''
@@ -137,9 +139,9 @@ class model_wrapper():
         for k in write_dict[self.param_string]:
             print("{} : {}".format(k, write_dict[self.param_string][k]))
         with open(json_filename, 'w') as outfile:
-                json.dump(write_dict, outfile, indent=2)
+                json.dump(write_dict, outfile, indent=6)
 
-    def train_and_score(self, n_iter=1, cv=5, n_jobs=1, save_model=True):
+    def train_and_score(self, n_iter=1, cv=2, n_jobs=-1, save_model=True):
         '''
         input n_iter: int, number of training iterations if doing a hyper parameter search
         input cv: int, number of cross folds to trian on
@@ -153,14 +155,14 @@ class model_wrapper():
         if save_model:
             self.save_model()
         g = self.clf.predict(X)
-        X,y = self.load_data("val")
-        g = self.clf.predict(X)
         ## Log the results
         self.results_dict["time_to_train"] = time.time() - tic
         self.results_dict["n_iter"] = n_iter
         self.results_dict["cross_folds"] = cv
         self.results_dict["n_jobs"] = n_jobs
         self.results_dict["training_score"] = f1_score(y_true=y, y_pred=g, average='micro') 
+        X,y = self.load_data("val")
+        g = self.clf.predict(X)
         self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
         if hasattr(self.clf, 'cv_results_'):
             cvres = self.clf.cv_results_

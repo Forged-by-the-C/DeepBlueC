@@ -9,6 +9,10 @@ from sklearn.model_selection import RandomizedSearchCV
 
 from src.utils.model_wrapper import model_wrapper
 
+
+train_space = 1
+cross_folds = 2
+
 class sgd(model_wrapper):
 
     def train(self, X,y, n_iter, cv, n_jobs):
@@ -28,11 +32,11 @@ class sgd(model_wrapper):
         clf = RandomizedSearchCV(pipe, param_grid, scoring='f1_micro', n_iter=n_iter,
                 cv=cv, verbose=1, n_jobs=n_jobs)
         clf.fit(X, y)
-        print("Best Params: {}".format(clf.best_params_))
+        self.results_dict["best_params"] = clf.best_params_
         return clf
 
 if __name__ == "__main__":
     mod = sgd({"model":"sgd"})
-    mod.train_and_score(n_iter=4, cv=5, n_jobs=-1, save_model=True)
+    mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=-1, save_model=True)
     #mod.load_and_score()
     #mod.load_and_predict_submission()
