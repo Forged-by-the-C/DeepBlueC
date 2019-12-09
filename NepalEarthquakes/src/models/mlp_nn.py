@@ -31,7 +31,7 @@ class mlp(model_wrapper):
         n_iter = min(n_iter, 3)
         clf = RandomizedSearchCV(pipe, param_grid, scoring='f1_micro', n_iter=n_iter, cv=cv, verbose=1, n_jobs=n_jobs)
         clf.fit(X, y)
-        print("Best Params: {}".format(clf.best_params_))
+        self.results_dict["best_params"] = clf.best_params_
         return clf
 
 if __name__ == "__main__":

@@ -137,9 +137,9 @@ class model_wrapper():
         for k in write_dict[self.param_string]:
             print("{} : {}".format(k, write_dict[self.param_string][k]))
         with open(json_filename, 'w') as outfile:
-                json.dump(write_dict, outfile, indent=2)
+                json.dump(write_dict, outfile, indent=6)
 
-    def train_and_score(self, n_iter=1, cv=5, n_jobs=1, save_model=True):
+    def train_and_score(self, n_iter=1, cv=2, n_jobs=-1, save_model=True):
         '''
         input n_iter: int, number of training iterations if doing a hyper parameter search
         input cv: int, number of cross folds to trian on
