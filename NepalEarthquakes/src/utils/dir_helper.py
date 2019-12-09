@@ -9,7 +9,10 @@ def construct_dir_path(project_dir="NepalEarthquakes",
         if d == 'NepalEarthquakes':
             break
     path_to_file.append(sub_dir)
-    return '/' + os.path.join(*path_to_file) + '/'
+    out_str ='/' + os.path.join(*path_to_file) + '/'
+    if not os.path.exists(out_str):
+        os.mkdir(out_str)
+    return out_str
 
 if __name__=='__main__':
     pass

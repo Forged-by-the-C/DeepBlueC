@@ -1,0 +1,60 @@
+{
+  "model_et_": {
+    "tester": [
+      [
+        "s",
+        "o"
+      ],
+      [
+        "n",
+        "p"
+      ]
+    ],
+    "test__": [
+      [
+        "s",
+        "o"
+      ],
+      [
+        "n",
+        "p"
+      ]
+    ],
+    "best_params": {
+      "extratreesclassifier__n_estimators": 120,
+      "extratreesclassifier__min_samples_leaf": 6
+    },
+    "time_to_train": 93.2540774345398,
+    "n_iter": 1,
+    "cross_folds": 2,
+    "n_jobs": -1,
+    "training_score": 0.6892555640828857,
+    "val_score": 0.6892555640828857,
+    "cv_results": [
+      [
+        0.6890493092862624,
+        {
+          "extratreesclassifier__n_estimators": 120,
+          "extratreesclassifier__min_samples_leaf": 6
+        }
+      ]
+    ],
+    "confusion_matrix": [
+      [
+        0.03618572524942441,
+        0.059286262471220263,
+        0.001343054489639294
+      ],
+      [
+        0.018188795088257867,
+        0.47759017651573293,
+        0.07045280122793553
+      ],
+      [
+        0.0015349194167306216,
+        0.15993860322333078,
+        0.17547966231772832
+      ]
+    ]
+  }
+}

@@ -1,16 +1,19 @@
+import json
 import os
 import pandas as pd
 import pickle
-import src.utils.data_helper as data_w
-import src.utils.dir_helper as dir_w
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import f1_score
 import time
+
+import src.utils.data_helper as data_w
+import src.utils.dir_helper as dir_w
 
 class model_wrapper():
 
     def __init__(self, param_dict = {"name":"init"}):
         self.param_dict = param_dict
+        self.results_dict = {}
         self.param_string = self.gen_param_string(self.param_dict)
         self.gen_model_file_path()
 
@@ -88,8 +91,9 @@ class model_wrapper():
         self.load_model()
         X,y = self.load_data(split="val")
         g = self.clf.predict(X)
-        print("Cross Val Score on {} is {:.4f}".format(self.param_string, f1_score(y_true=y, y_pred=g, average='micro')))
-        print(self.gen_conf_matrix(y, g))
+        self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
+        self.results_dict["confusion_matrix"] = self.gen_conf_matrix(y, g).tolist()
+        self.log_results()
 
     def gen_conf_matrix(self, y_true, y_pred):
         '''
@@ -119,11 +123,21 @@ class model_wrapper():
             print(mean_score, params)
 
     def log_results(self):
-        #TODO: If json doesnt exist, write
-        #TODO: If json does exist read it in
-        #TODO: Add entry: model name, train score, val score, time to train, params
-        #TODO: Write JSON to File
-        pass
+        json_filename = dir_w.construct_dir_path(project_dir="NepalEarthquakes",
+                sub_dir="models") + "results.json"
+        if os.path.exists(json_filename):
+            with open(json_filename, 'r') as outfile:
+                    write_dict = json.load(outfile)
+        else: 
+            write_dict = {}
+        if self.param_string in write_dict:
+            write_dict[self.param_string].update(self.results_dict)
+        else:
+            write_dict[self.param_string] = self.results_dict
+        for k in write_dict[self.param_string]:
+            print("{} : {}".format(k, write_dict[self.param_string][k]))
+        with open(json_filename, 'w') as outfile:
+                json.dump(write_dict, outfile, indent=2)
 
     def train_and_score(self, n_iter=1, cv=5, n_jobs=1, save_model=True):
         '''
@@ -132,28 +146,26 @@ class model_wrapper():
         input n_jobs: int, number of processoers to use if doing a hyper parameter seacrch
                             -1 indicates using all processors
         input save_model: boolean
-        return time_to_train: float, seconds took to train
-        rerturn val_score: float, score on cross validation
         '''
         X,y = self.load_data("train")
         tic = time.time()
         self.clf = self.train(X,y, n_iter, cv, n_jobs)
         if save_model:
             self.save_model()
-        time_to_train = time.time() - tic
-        print("{} time to train {} iters: {:.0f} seconds".format(
-            self.param_dict[list(self.param_dict.keys())[0]],
-            n_iter, time_to_train))
         g = self.clf.predict(X)
-        print("Training Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
         X,y = self.load_data("val")
         g = self.clf.predict(X)
-        val_score = f1_score(y_true=y, y_pred=g, average='micro')
-        print("Val Score: {}".format(f1_score(y_true=y, y_pred=g, average='micro')))
-        if 0:
-        #if "model" in self.param_dict.keys():
-            self.print_cv_results()
-        return time_to_train, val_score 
+        ## Log the results
+        self.results_dict["time_to_train"] = time.time() - tic
+        self.results_dict["n_iter"] = n_iter
+        self.results_dict["cross_folds"] = cv
+        self.results_dict["n_jobs"] = n_jobs
+        self.results_dict["training_score"] = f1_score(y_true=y, y_pred=g, average='micro') 
+        self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
+        if hasattr(self.clf, 'cv_results_'):
+            cvres = self.clf.cv_results_
+            self.results_dict["cv_results"] = list(zip(cvres["mean_test_score"], cvres["params"]))
+        self.log_results()
 
 if __name__=='__main__':
     pass

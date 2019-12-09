@@ -13,7 +13,9 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-train_space = 15
+train_space = 1
+cross_folds = 2
+
 
 class extra_trees(model_wrapper):
 
@@ -33,11 +35,12 @@ class extra_trees(model_wrapper):
         clf = RandomizedSearchCV(pipe, param_grid, scoring='f1_micro', n_iter=n_iter,
                 cv=cv, verbose=1, n_jobs=n_jobs)
         clf.fit(X, y)
-        print("Best Params: {}".format(clf.best_params_))
+        self.results_dict["best_params"] = clf.best_params_
         return clf
 
 if __name__ == "__main__":
     mod = extra_trees({"model":"et"})
-    mod.train_and_score(n_iter=train_space, cv=5, n_jobs=-1, save_model=True)
-    #mod.load_and_score()
+    #mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=-1, save_model=True)
+    #mod.log_results()
+    mod.load_and_score()
     #mod.load_and_predict_submission()
