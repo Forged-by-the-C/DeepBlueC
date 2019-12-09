@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     whole_df = rf_features(whole_df, "damage_grade", 
                                 to_skip=["geo_level_2_id", "geo_level_3_id"], 
-                                numm_cats=["geo_level_1_id"]) 
+                                num_cats=["geo_level_1_id"])
     
     #Pass combined df to split and save as csvs in processed file
-    split_df(whole_df, split_ratio, interim_loc)
+    #split_df(whole_df, split_ratio, interim_loc)
