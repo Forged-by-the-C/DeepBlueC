@@ -1,11 +1,8 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
-from sklearn.ensemble import GradientBoostingClassifier
-# for combining the preprocess with model training
-from sklearn.pipeline import make_pipeline
-# for optimizing the hyperparameters of the pipeline
-from sklearn.model_selection import RandomizedSearchCV
+from sklearn.ensemble import ExtraTreesClassifier
+from skopt import BayesSearchCV
 
 from src.utils.model_wrapper import model_wrapper
 
@@ -13,10 +10,11 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-train_space = 1
-cross_folds = 2
+train_space = 15
+cross_folds = 3
+n_jobs=6
 
-class gradient_boosting(model_wrapper):
+class extra_trees(model_wrapper):
 
     def train(self, X,y, n_iter, cv, n_jobs):
         '''
@@ -28,17 +26,26 @@ class gradient_boosting(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        pipe = make_pipeline(GradientBoostingClassifier(random_state=2018))
-        param_grid = {'gradientboostingclassifier__n_estimators': range(10,110),
-                        'gradientboostingclassifier__min_samples_leaf':range(3,20)}
-        clf = RandomizedSearchCV(pipe, param_grid, scoring='f1_micro', n_iter=n_iter,
-                cv=cv, verbose=1, n_jobs=n_jobs)
+        clf = BayesSearchCV(
+            ExtraTreesClassifier(),
+            {
+                'n_estimators': (150, 400),  
+                'min_samples_leaf': (2, 20),
+                'max_features': ['auto', 'sqrt', 'log2'],  # categorical parameter
+            },
+            n_iter=n_iter,
+            scoring='f1_micro',
+            n_jobs=n_jobs,
+            cv=cv
+            )
+        self.results_dict["total_iterations"] = clf.total_iterations
         clf.fit(X, y)
         self.results_dict["best_params"] = clf.best_params_
         return clf
 
 if __name__ == "__main__":
-    mod = gradient_boosting({"model":"gb"})
-    mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=-1, save_model=True)
+    mod = extra_trees({"sko":"et1"})
+    mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=n_jobs, save_model=True)
+    #mod.log_results()
     #mod.load_and_score()
     #mod.load_and_predict_submission()

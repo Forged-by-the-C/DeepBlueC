@@ -45,5 +45,5 @@ if __name__ == "__main__":
     mod = voting({"ensemble":"voting"})
     #mod.gen_clf_tuple_list()
     #mod.train_and_score(n_jobs=-1, save_model=True)
-    mod.load_and_score()
-    #mod.load_and_predict_submission()
+    #mod.load_and_score()
+    mod.load_and_predict_submission()
