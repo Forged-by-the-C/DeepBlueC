@@ -6,7 +6,7 @@ from src.utils.model_wrapper import model_wrapper
 
 class xg_boosting(model_wrapper):
 
-    def train(self, X,y):
+    def train(self, X,y, n_iter, cv, n_jobs):
         '''
         input X: numpy.ndarray of shape (n_smaples, n_features)
         input y: numpy.ndarray of shape (n_samples, )

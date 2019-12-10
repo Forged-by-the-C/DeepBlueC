@@ -50,7 +50,7 @@ class model_wrapper():
         return X[:num], y[:num]
 
     def grab_submission_data(self):
-        features_df = data_w.grab_data("raw", "test_values")
+        features_df = data_w.grab_data("interim", "submit_vals")
         #features_df = rf_features.eng_features(features_df)
         return features_df
 
