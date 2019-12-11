@@ -37,15 +37,20 @@ if __name__ == '__main__':
     split_ratio = [.8, .1, .1]
     train_vals_loc = "../../Data/raw/train_values.csv"
     train_labels_loc = "../../Data/raw/train_labels.csv"
+    submit_data_loc = "../../Data/raw/test_values.csv"
     interim_loc = "../../Data/interim/"
 
     #Combine the values with their labels
     #not needed if data
     whole_df = combine_vals_labels(pd.read_csv(train_vals_loc), pd.read_csv(train_labels_loc), "building_id")
 
-    whole_df = rf_features(whole_df, "damage_grade", 
+    submit_df = pd.read_csv(submit_data_loc, index_col="building_id")
+
+    whole_df, submit_df = rf_features(whole_df, submit_df, "damage_grade",
                                 to_skip=["geo_level_2_id", "geo_level_3_id"], 
                                 num_cats=["geo_level_1_id"])
-    
+
+
+    submit_df.to_csv("../../Data/interim/submit_vals.csv")
     #Pass combined df to split and save as csvs in processed file
     #split_df(whole_df, split_ratio, interim_loc)
