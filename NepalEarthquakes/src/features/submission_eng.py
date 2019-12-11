@@ -19,6 +19,8 @@ def eng_submit(eng_df: pd.DataFrame, dependent_col: str, to_skip: list, num_cats
 
     # Categorical will be from cols
     #eng_df = categorical_trim(eng_df, dependent_col, categorical, .2)
+    trim_dict = load_model("trim_dict.pkl")
+    eng_df = eng_df.replace(trim_dict, "other", regex=True)
 
     # Check for harighly cardinal and use binary encoding
     to_binary = []
@@ -29,10 +31,17 @@ def eng_submit(eng_df: pd.DataFrame, dependent_col: str, to_skip: list, num_cats
 
     ##Binary
     # instantiate an encoder - here we use Binary()
-    ce_binary = load_model("ce_model.pkl")
+    ce_binary = load_model("ce_model1.pkl")
+
+    print(ce_binary.get_params())
+
+    print(eng_df["geo_level_1_id"].value_counts())
 
     # Use binary encoder
     eng_df = ce_binary.transform(eng_df)
+
+    print(eng_df["geo_level_1_id_1"].value_counts())
+
 
     # One Hot
     one_hot_cols = set(categorical) - set(to_binary)
@@ -50,11 +59,9 @@ def eng_submit(eng_df: pd.DataFrame, dependent_col: str, to_skip: list, num_cats
 
     return eng_df
 
-
-    return submit_df
-
 if __name__ == '__main__':
     trans_df = pd.read_csv("../../Data/raw/test_values.csv", index_col="building_id")
     sub_df = eng_submit(trans_df, "damage_grade", ["geo_level_2_id", "geo_level_3_id"], ["geo_level_1_id"])
-    sub_df.to_csv("../../Data/interim/submit_vals.csv")
+
+    #sub_df.to_csv("../../Data/interim/submit_vals.csv")
     pass
