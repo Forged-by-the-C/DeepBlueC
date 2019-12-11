@@ -65,6 +65,6 @@ class xg_boosting(model_wrapper):
 if __name__ == "__main__":
     mod = xg_boosting({"md":3, "cw": 6, "gamma": 1.5})
     #mod.parameter_search()
-    mod.train_and_score()
-    #mod.load_and_score()
+    #mod.train_and_score()
+    mod.load_and_score()
     #mod.load_and_predict_submission()
