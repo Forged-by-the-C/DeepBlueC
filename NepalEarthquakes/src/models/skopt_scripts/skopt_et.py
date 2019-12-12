@@ -29,7 +29,7 @@ class extra_trees(model_wrapper):
         clf = BayesSearchCV(
             ExtraTreesClassifier(),
             {
-                'n_estimators': (150, 400),  
+                'n_estimators': (300, 700),  
                 'min_samples_leaf': (2, 20),
                 'max_features': ['auto', 'sqrt', 'log2'],  # categorical parameter
             },

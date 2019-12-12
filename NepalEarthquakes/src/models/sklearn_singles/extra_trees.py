@@ -22,13 +22,13 @@ class extra_trees(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = ExtraTreesClassifier(random_state=2018, n_estimators=400, max_features="sqrt",
+        clf = ExtraTreesClassifier(random_state=2018, n_estimators=300, max_features="auto",
                                   min_samples_leaf=2, n_jobs=-1)
         clf.fit(X, y)
         return clf
 
 if __name__ == "__main__":
     mod = extra_trees({"single":"et"})
-    mod.train_and_score(save_model=True)
-    #mod.load_and_score()
+    #mod.train_and_score(save_model=True)
+    mod.load_and_score()
     #mod.load_and_predict_submission()
