@@ -53,4 +53,4 @@ if __name__ == '__main__':
 
     submit_df.to_csv("../../Data/interim/submit_vals.csv")
     #Pass combined df to split and save as csvs in processed file
-    #split_df(whole_df, split_ratio, interim_loc)
+    split_df(whole_df, split_ratio, interim_loc)

@@ -66,6 +66,7 @@ def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str
     ##Binary
 
     ##Drop dependent
+    dep_col_ser = eng_df[dependent_col].copy()
     eng_df = eng_df.drop(dependent_col, axis=1)
 
     # instantiate an encoder - here we use Binary()
@@ -80,6 +81,8 @@ def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str
     eng_df = ce_binary.transform(eng_df)
     submit_df = ce_binary.transform(submit_df)
 
+    #Add dependent column back
+    eng_df[dependent_col] = dep_col_ser
 
     #One Hot
     one_hot_cols = set(categorical) - set(to_binary)
