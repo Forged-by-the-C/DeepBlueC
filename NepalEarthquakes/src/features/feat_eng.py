@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import category_encoders as ce
 import pickle
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.feature_selection import SelectFromModel
 
 def one_hot_ec(df: pd.DataFrame, to_oh: list):
     return pd.get_dummies(df, columns=to_oh)
@@ -15,8 +17,74 @@ def save_model(model, file_path):
     with open(file_path, 'wb') as f:
         pickle.dump(model, f)
 
-def categorical_trim(df: pd.DataFrame, submit_df:pd.DataFrame, dependent: str, cat_cols: list, ratio: float):
+def prune(eng_df, submit_df):
+    print("*"*5, "Pruning Model: ","*"*5,)
+    print("Features before Prune: ", len(submit_df.columns))
+    X = eng_df.drop("damage_grade", axis=1)
+    y = eng_df["damage_grade"]
+    model = ExtraTreesClassifier(n_estimators=50)
+    selector = model.fit(X, y)
+    feat_model = SelectFromModel(selector, prefit=True, threshold=.0075)
+    new_eng = eng_df.loc[:,feat_model.get_support()]
+    new_eng = new_eng.assign(damage_grade = eng_df["damage_grade"])
+    new_submit_df = submit_df.loc[:,feat_model.get_support()]
+    print("Features after Prune: ", len(new_submit_df.columns))
+    return new_eng, new_submit_df
+
+def rev_one_hot(df, prefix):
+    # Copy df for return
+    to_return = df.copy()
+
+    # Get columns from df that use o-h prefix
+    one_hot_cols = df.columns[df.columns.str.contains(prefix)]
+    if len(one_hot_cols) == 0:
+        print("None found to collapse.")
+        return
+
+    # Make new df with only those columns
+    one_hot_df = to_return[one_hot_cols]
+
+    # Turn 0/1 into booleans
+    boolean_df = one_hot_df.apply(lambda x: x > 0)
+
+    # Use that to get list of all values shown
+    # This is only a list for those that have more than one value which is atypical for one hot
+    rev_one_hot_df = pd.DataFrame(boolean_df.apply(lambda x: list(one_hot_cols[x.values]), axis=1),
+                                  columns=["rev_oh_list"])
+
+    # Get count as a feature
+    kwargs_cnt = {str(prefix + "_count"): rev_one_hot_df["rev_oh_list"].str.len()}
+    rev_one_hot_df = rev_one_hot_df.assign(**kwargs_cnt)
+
+    # Turn into a string for hashing
+    kwargs_str = {prefix: rev_one_hot_df["rev_oh_list"].apply(", ".join)}
+    rev_one_hot_df = rev_one_hot_df.assign(**kwargs_str)
+
+    # Merge back into df
+
+    # Drop the cols that were collapsed
+    print("Collapsed ", len(one_hot_cols), "columns.")
+    #to_return.drop(list(one_hot_cols), inplace=True, axis=1)
+
+    # Drop list col
+    rev_one_hot_df.drop("rev_oh_list", inplace=True, axis=1)
+
+    # Merge in oh str snd count
+    to_return = to_return.merge(rev_one_hot_df, left_index=True, right_index=True)
+
+    return to_return
+
+def edit_to_processed(df :pd.DataFrame):
+    interim_df = df.copy()
+    interim_df.drop("has_secondary_use", axis=1, inplace=True)
+    interim_df = rev_one_hot(interim_df, "has_secondary_use")
+    interim_df = rev_one_hot(interim_df, "has_superstructure")
+    return interim_df
+
+def categorical_trim(start_df: pd.DataFrame, submit_df:pd.DataFrame, dependent: str, cat_cols: list, ratio: float):
+    df = start_df.copy()
     replaced = {}
+    #Reverse one hot
     for col in cat_cols:
         group_vals = df.groupby(col)[dependent].sum()
         group_perc = group_vals / group_vals.sum()
@@ -40,17 +108,23 @@ def categorical_trim(df: pd.DataFrame, submit_df:pd.DataFrame, dependent: str, c
         else:
             print("No items to change")
 
-    save_model(replaced, "../features/trim_dict.pkl")
+    #save_model(replaced, "../features/trim_dict.pkl")
     return df, submit_df
 
-def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str, to_skip: list, num_cats: list):
+def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str, to_skip: list, num_cats: list, james:list):
     #Drop skip list
     eng_df = eng_df.drop(to_skip, axis=1)
     submit_df = submit_df.drop(to_skip, axis=1)
+    eng_df = edit_to_processed(eng_df)
+    submit_df = edit_to_processed(submit_df)
+
 
     #Get list of categorical columns, only based on type
     categorical = list(eng_df.select_dtypes("object").columns)
     categorical = categorical + num_cats
+
+    #Remove those used for james enc
+    categorical = list(set(categorical) - set(james))
 
     #Categorical trim from dict
     eng_df, submit_df = categorical_trim(eng_df, submit_df, dependent_col, categorical, .2)
@@ -75,11 +149,22 @@ def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str
     ce_binary.fit(eng_df)
 
     #Save binary encoder
-    save_model(ce_binary, "../features/ce_model1.pkl")
+    #save_model(ce_binary, "../features/ce_model1.pkl")
 
     #Use binary encoder
     eng_df = ce_binary.transform(eng_df)
     submit_df = ce_binary.transform(submit_df)
+
+    for var in james:
+        print("Use James Encoder on ", var)
+
+    #Use james encoder
+    ce_james = ce.JamesSteinEncoder(cols=james)
+    ce_james.fit(eng_df, dep_col_ser)
+
+    # Use binary encoder
+    eng_df = ce_james.transform(eng_df)
+    submit_df = ce_james.transform(submit_df)
 
     #Add dependent column back
     eng_df[dependent_col] = dep_col_ser
@@ -104,6 +189,9 @@ def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str
     height_sub = submit_df["count_floors_pre_eq"]
     area_sub = submit_df["area_percentage"]
     submit_df = submit_df.assign(slenderness=(height_sub / area_sub))
+
+    #Prune to the new features
+    eng_df, submit_df = prune(eng_df, submit_df)
 
     return eng_df, submit_df
 
