@@ -1,16 +1,20 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
+from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import ExtraTreesClassifier
+# for combining the preprocess with model training
+from sklearn.pipeline import make_pipeline
+# for optimizing the hyperparameters of the pipeline
+from sklearn.model_selection import RandomizedSearchCV
 
 from src.utils.model_wrapper import model_wrapper
-import src.utils.data_helper as data_w
 
 '''
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-class extra_trees(model_wrapper):
+class mlp(model_wrapper):
 
     def train(self, X,y, n_iter, cv, n_jobs):
         '''
@@ -22,13 +26,12 @@ class extra_trees(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = ExtraTreesClassifier(random_state=2018, n_estimators=324, max_features="log2",
-                                  min_samples_leaf=3, n_jobs=-1)
+        clf = MLPClassifier(max_iter=2000)
         clf.fit(X, y)
         return clf
 
 if __name__ == "__main__":
-    mod = extra_trees({"single":"et"})
-    #mod.train_and_score(save_model=True)
+    mod = mlp({"single":"mlp"})
+    mod.train_and_score(n_jobs=-1, save_model=True)
     #mod.load_and_score()
-    mod.load_and_predict_submission()
+    #mod.load_and_predict_submission()
