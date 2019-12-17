@@ -13,9 +13,6 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-train_space = 15
-cross_folds = 3
-
 class gradient_boosting(model_wrapper):
 
     def train(self, X,y, n_iter, cv, n_jobs):
@@ -40,6 +37,6 @@ class gradient_boosting(model_wrapper):
 
 if __name__ == "__main__":
     mod = gradient_boosting({"single":"gb"})
-    #mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=-1, save_model=True)
-    mod.load_and_score()
+    mod.train_and_score(n_jobs=-1, save_model=True)
+    #mod.load_and_score()
     #mod.load_and_predict_submission()
