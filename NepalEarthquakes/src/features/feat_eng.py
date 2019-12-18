@@ -25,7 +25,7 @@ def prune(eng_df, submit_df):
     model = ExtraTreesClassifier(n_estimators=50)
     selector = model.fit(X, y)
     feat_model = SelectFromModel(selector, prefit=True, threshold=.0075)
-    new_eng = eng_df.loc[:,feat_model.get_support()]
+    new_eng = X.loc[:,feat_model.get_support()]
     new_eng = new_eng.assign(damage_grade = eng_df["damage_grade"])
     new_submit_df = submit_df.loc[:,feat_model.get_support()]
     print("Features after Prune: ", len(new_submit_df.columns))
