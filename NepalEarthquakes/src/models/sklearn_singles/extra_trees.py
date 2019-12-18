@@ -22,7 +22,8 @@ class extra_trees(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = ExtraTreesClassifier(random_state=2018, n_estimators=324, max_features="log2",
+        clf = ExtraTreesClassifier(random_state=2018, 
+                n_estimators=320, max_features="sqrt",
                                   min_samples_leaf=3, n_jobs=-1)
         clf.fit(X, y)
         return clf

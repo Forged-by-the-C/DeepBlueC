@@ -26,11 +26,11 @@ class gradient_boosting(model_wrapper):
         output: trained model
         '''
         clf = GradientBoostingClassifier(
-                    max_depth=12,
-                    max_features="log2",
-                    min_samples_leaf=11,
-                    min_samples_split=5,
-                    n_estimators= 127
+                    max_depth=20,
+                    max_features="sqrt",
+                    min_samples_leaf=15,
+                    min_samples_split=19,
+                    n_estimators= 22
                 )
         clf.fit(X, y)
         return clf
