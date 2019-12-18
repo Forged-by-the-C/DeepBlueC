@@ -10,7 +10,7 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-train_space = 15
+train_space = 30
 cross_folds = 3
 n_jobs=6
 
@@ -45,6 +45,6 @@ class extra_trees(model_wrapper):
 
 if __name__ == "__main__":
     mod = extra_trees({"sko":"et"})
-    mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=n_jobs, save_model=True)
+    #mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=n_jobs, save_model=True)
     #mod.load_and_score()
-    #mod.load_and_predict_submission()
+    mod.load_and_predict_submission()
