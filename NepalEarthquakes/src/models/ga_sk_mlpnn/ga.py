@@ -7,6 +7,7 @@ This module has a simple feed forward network classifier with architecture deter
         n -> 100 -> 3
 '''
 
+import pandas as pd
 import numpy as np
 
 class ga():
@@ -21,7 +22,17 @@ class ga():
         self.population = np.random.randint(low=self.gene_min,
                 high=self.gene_max, size=(self.population_size,self.chromosome_len))
 
-    #TODO: Fitness Raning
+    def rank_fitness(self, score_list):
+        '''
+        input score_list: list, list of fitness socres (float or int) of self.population by row
+            len(score_list)=self.population.shape[0]
+        '''
+        if len(score_list) != self.population.shape[0]:
+            raise ValueError("Fitness Score list name same length as population size")
+        self.fit_df = pd.DataFrame(self.population)
+        self.fit_df['fitness'] = score_list
+        self.fit_df.sort_values('fitness', ascending=False, inplace=True)
+
     #TODO: Crossover
     #TODO: Mutation
     #TODO: Logging 
