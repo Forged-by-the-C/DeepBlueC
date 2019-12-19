@@ -85,6 +85,22 @@ class TestGA(unittest.TestCase):
             fit_list.append(fitness(tuple(cls.ga.population[i])))
         cls.assertRaises(ValueError, cls.ga.rank_fitness, fit_list)
 
+    def test_compression(cls):
+        cls.ga.population = np.array(
+                [[1,1,1,1],
+                    [2,0,0,1],
+                    [0,0,1,0]])
+        compressed_pop = np.array(
+                [[1,1,1,1],
+                    [2,1,0,0],
+                    [1,0,0,0]])
+        cls.ga.compress_population()
+        np.testing.assert_array_equal(cls.ga.population, compressed_pop)
+
+    def test_compression_zeros_error(cls):
+        cls.ga.population = np.zeros((5,5), dtype='int')
+        cls.assertRaises(ValueError, cls.ga.compress_population)
+
 
 if __name__ == '__main__':
     unittest.main()
