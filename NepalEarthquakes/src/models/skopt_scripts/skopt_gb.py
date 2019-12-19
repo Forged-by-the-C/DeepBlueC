@@ -13,7 +13,7 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-train_space = 15
+train_space = 30
 cross_folds = 3
 n_jobs=6
 
@@ -33,9 +33,9 @@ class gradient_boosting(model_wrapper):
             GradientBoostingClassifier(),
             {
                 'n_estimators': (10, 400),  
-                'min_samples_split': (2, 20),
-                'min_samples_leaf': (1, 20),
-                'max_depth': (1, 20),
+                'min_samples_split': (2, 40),
+                'min_samples_leaf': (1, 40),
+                'max_depth': (1, 40),
                 'max_features': ['auto', 'sqrt', 'log2'],  # categorical parameter
             },
             n_iter=n_iter,
@@ -50,6 +50,6 @@ class gradient_boosting(model_wrapper):
 
 if __name__ == "__main__":
     mod = gradient_boosting({"sko":"gb"})
-    #mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=n_jobs, save_model=True)
+    mod.train_and_score(n_iter=train_space, cv=cross_folds, n_jobs=n_jobs, save_model=True)
     #mod.load_and_score()
-    mod.load_and_predict_submission()
+    #mod.load_and_predict_submission()

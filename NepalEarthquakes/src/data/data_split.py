@@ -47,8 +47,10 @@ if __name__ == '__main__':
     submit_df = pd.read_csv(submit_data_loc, index_col="building_id")
 
     whole_df, submit_df = rf_features(whole_df, submit_df, "damage_grade",
-                                to_skip=["geo_level_2_id", "geo_level_3_id"], 
-                                num_cats=["geo_level_1_id"])
+                                to_skip=[],
+                                num_cats=["geo_level_1_id", "geo_level_2_id", "geo_level_3_id"],
+                                james = ["land_surface_condition", "has_secondary_use", "has_superstructure", "foundation_type",
+                                             "roof_type", "ground_floor_type"])
 
 
     submit_df.to_csv("../../Data/interim/submit_vals.csv")

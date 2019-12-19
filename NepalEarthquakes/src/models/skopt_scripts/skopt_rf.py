@@ -10,7 +10,7 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-train_space = 15
+train_space = 30
 cross_folds = 3
 n_jobs=6
 

@@ -26,12 +26,12 @@ class mlp(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = MLPClassifier(hidden_layer_sizes=(100, ))
+        clf = MLPClassifier(hidden_layer_sizes=(100, ), max_iter=2000)
         clf.fit(X, y)
         return clf
 
 if __name__ == "__main__":
     mod = mlp({"single":"mlp"})
-    mod.train_and_score(save_model=True)
+    mod.train_and_score(n_jobs=-1, save_model=True)
     #mod.load_and_score()
     #mod.load_and_predict_submission()
