@@ -97,10 +97,62 @@ class TestGA(unittest.TestCase):
         cls.ga.compress_population()
         np.testing.assert_array_equal(cls.ga.population, compressed_pop)
 
-    def test_compression_zeros_error(cls):
-        cls.ga.population = np.zeros((5,5), dtype='int')
-        cls.assertRaises(ValueError, cls.ga.compress_population)
+    def test_crossover(cls):
+        cls.ga.population = np.array(
+                [[1,1,1,1],
+                    [2,1,0,0],
+                    [1,0,0,0]])
+        crossed = cls.ga.crossover(0,1)
+        cls.assertRaises(AssertionError, np.testing.assert_array_equal, 
+                crossed, cls.ga.population[0])
+        cls.assertRaises(AssertionError, np.testing.assert_array_equal, 
+                crossed, cls.ga.population[1])
 
+    def test_raise_int_error(cls):
+        cls.ga.raise_int_error(2,1,3,"good")
+        cls.assertRaises(ValueError, cls.ga.raise_int_error,2.5,1,3,"not_int")
+        cls.assertRaises(ValueError, cls.ga.raise_int_error,0,1,3,"low")
+        cls.assertRaises(ValueError, cls.ga.raise_int_error,4,1,3,"high")
+
+    def test_mutataion(cls):
+        cls.ga.population = np.zeros((10,10), dtype="int")
+        cls.ga.mutate()
+        cls.assertTrue(cls.ga.population.sum().sum() > 0)
+
+    def test_breed(cls):
+        cls.ga.gen_population()
+        old_pop = cls.ga.population
+        cls.ga.breed()
+        cls.assertEqual(cls.ga.population.shape[0], cls.population_size) 
+        cls.assertEqual(cls.ga.population.shape[1], cls.chromosome_max_len) 
+        cls.assertRaises(AssertionError, np.testing.assert_array_equal, 
+                cls.ga.population, old_pop)
+
+    def test_breed_maintains_best(cls):
+        cls.ga.gen_population()
+        fit_list = []
+        for i in range(cls.ga.population.shape[0]):
+            fit_list.append(fitness(tuple(cls.ga.population[i])))
+        cls.ga.rank_fitness(fit_list)
+        old_best = cls.ga.population[0]
+        cls.ga.breed()
+        np.testing.assert_array_equal(cls.ga.population[0], old_best)
+
+    def test_algo(cls):
+        cls.ga.gen_population()
+        num_generations = 10
+        fitness_score = -100
+        generation_counter = 0
+        while (fitness_score<99) and (generation_counter<num_generations): 
+            fit_list = []
+            for i in range(cls.ga.population.shape[0]):
+                fit_list.append(fitness(tuple(cls.ga.population[i])))
+            fitness_score = max(fit_list)
+            cls.ga.rank_fitness(fit_list)
+            #print("Generation {} best chromosome: {}".format(generation_counter, fitness_score))
+            cls.ga.breed() 
+            generation_counter += 1
+        cls.assertTrue(fitness_score>0)
 
 if __name__ == '__main__':
     unittest.main()
