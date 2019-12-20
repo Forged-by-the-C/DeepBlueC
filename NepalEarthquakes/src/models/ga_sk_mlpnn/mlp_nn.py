@@ -2,21 +2,20 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
 from sklearn.neural_network import MLPClassifier
-from sklearn.ensemble import ExtraTreesClassifier
-# for combining the preprocess with model training
-from sklearn.pipeline import make_pipeline
-# for optimizing the hyperparameters of the pipeline
-from sklearn.model_selection import RandomizedSearchCV
+import time
 
 from src.utils.model_wrapper import model_wrapper
+from ga import ga
 
 '''
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
+num_iters_per_train = 1
+
 class mlp(model_wrapper):
 
-    def train(self, X,y, n_iter, cv, n_jobs):
+    def train(self, X,y, n_jobs, hidden_layer_sizes):
         '''
         input X: numpy.ndarray of shape (n_smaples, n_features)
         input y: numpy.ndarray of shape (n_samples, )
@@ -26,36 +25,61 @@ class mlp(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = MLPClassifier(hidden_layer_sizes=(100, ), max_iter=10)
+        clf = MLPClassifier(hidden_layer_sizes, max_iter=num_iters_per_train)
         clf.fit(X, y)
         return clf
 
     def run_ga(self, load_population=False):
-        pass
-
-    def train_and_score(self, n_iter=1, cv=2, n_jobs=-1, save_model=True):
         X,y = self.load_data("train")
-        tic = time.time()
-        self.clf = self.train(X,y, n_iter, cv, n_jobs)
-        if save_model:
-            self.save_model()
-        g = self.clf.predict(X)
-        ## Log the results
-        self.results_dict["time_to_train"] = time.time() - tic
-        self.results_dict["n_iter"] = n_iter
-        self.results_dict["cross_folds"] = cv
-        self.results_dict["n_jobs"] = n_jobs
-        self.results_dict["training_score"] = f1_score(y_true=y, y_pred=g, average='micro') 
-        X,y = self.load_data("val")
-        g = self.clf.predict(X)
-        self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
-        if hasattr(self.clf, 'cv_results_'):
-            cvres = self.clf.cv_results_
-            self.results_dict["cv_results"] = list(zip(cvres["mean_test_score"], cvres["params"]))
-        self.log_results()
+        X_val,y_val = self.load_data("val")
+        prev_best_fitness = 0
+        if load_population:
+            self.ga = ga.load_csv()
+            self.ga.breed()
+            prev_best_fitness = self.ga.fit_df.fitness.max()
+        else:
+            self.ga = ga(population_size=10, chromosome_max_len=10, gene_max=300, gene_min=0)
+            self.ga.gen_population()
+        while True:
+            best_fitness = 0
+            fit_list = []
+            tic = time.time()
+            for i in range(self.ga.population.shape[0]):
+                hidden_layer_sizes = self.ga.trim_to_tuple(i)
+                if prev_best_fitness > 0 and i==0:
+                    #Current the algorithm puts the best chromosome from the previous generation first
+                    fitness = prev_best_fitness
+                else:    
+                    model = self.train(X,y,-1,hidden_layer_sizes)
+                    fitness = f1_score(y_true=y, y_pred=model.predict(X), average='micro') 
+                print("Model: {} F1 Score: {}".format(hidden_layer_sizes, fitness))
+                if fitness > best_fitness:
+                    best_model = model
+                    best_params = hidden_layer_sizes
+                    best_fitness = fitness
+                fit_list.append(fitness)
+            self.ga.rank_fitness(fit_list)
+            self.ga.to_csv()
+            #TODO: Fix Logging
+            #print("-"*10 +"Logging Generation" + "-"*10)
+            val_score = f1_score(y_true=y_val, y_pred=best_model.predict(X_val), average='micro')
+            print("Best Model: {} Train Score: {} Val Score: {}".format(best_params, best_fitness, val_score))
+            if False:
+            #if prev_best_fitness < best_fitness:
+                prev_best_fitness = best_fitness
+                self.clf = best_model
+                self.save_model()
+                self.ga.breed()
+                self.results_dict["time_to_train_generation"] = time.time() - tic
+                self.results_dict["best_params"] = list(best_params)
+                self.results_dict["training_score"] = best_fitness 
+                self.results_dict["val_score"] = val_score 
+                self.log_results()
+                #else:
+                print("*"*15 + "No better genes found since last generation" + "*"*15)
 
 if __name__ == "__main__":
-    mod = mlp({"single":"mlp"})
-    mod.train_and_score(save_model=True)
+    mod = mlp({"ga":"mlp"})
+    mod.run_ga(load_population=False)
     #mod.load_and_score()
     #mod.load_and_predict_submission()
