@@ -30,6 +30,30 @@ class mlp(model_wrapper):
         clf.fit(X, y)
         return clf
 
+    def run_ga(self, load_population=False):
+        pass
+
+    def train_and_score(self, n_iter=1, cv=2, n_jobs=-1, save_model=True):
+        X,y = self.load_data("train")
+        tic = time.time()
+        self.clf = self.train(X,y, n_iter, cv, n_jobs)
+        if save_model:
+            self.save_model()
+        g = self.clf.predict(X)
+        ## Log the results
+        self.results_dict["time_to_train"] = time.time() - tic
+        self.results_dict["n_iter"] = n_iter
+        self.results_dict["cross_folds"] = cv
+        self.results_dict["n_jobs"] = n_jobs
+        self.results_dict["training_score"] = f1_score(y_true=y, y_pred=g, average='micro') 
+        X,y = self.load_data("val")
+        g = self.clf.predict(X)
+        self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
+        if hasattr(self.clf, 'cv_results_'):
+            cvres = self.clf.cv_results_
+            self.results_dict["cv_results"] = list(zip(cvres["mean_test_score"], cvres["params"]))
+        self.log_results()
+
 if __name__ == "__main__":
     mod = mlp({"single":"mlp"})
     mod.train_and_score(save_model=True)
