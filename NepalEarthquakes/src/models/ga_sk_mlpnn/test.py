@@ -11,6 +11,7 @@ Where the optimal solution should be
 '''
 
 import numpy as np
+import os
 import unittest
 
 from ga import ga
@@ -153,6 +154,46 @@ class TestGA(unittest.TestCase):
             cls.ga.breed() 
             generation_counter += 1
         cls.assertTrue(fitness_score>0)
+
+    def test_to_csv(cls):
+        cls.ga.population = np.array(
+                [[2,4,5,0],
+                    [2,4,5,1],
+                    [2,0,0,0],
+                    [cls.gene_max, 0.5*cls.gene_max, 0.5*0.5*cls.gene_max, 0]])
+        fit_list = []
+        for i in range(cls.ga.population.shape[0]):
+            fit_list.append(fitness(tuple(cls.ga.population[i])))
+        cls.ga.rank_fitness(fit_list)
+        filename = "test_population.csv"
+        cls.ga.to_csv(path=filename)
+        cls.assertTrue(os.path.exists(filename)) 
+        os.remove(filename)
+        cls.assertTrue(~os.path.exists(filename)) 
+    
+    def test_load_csv(cls):
+        cls.ga.population = np.array(
+                [[2,4,5,0],
+                    [2,4,5,1],
+                    [2,0,0,0],
+                    [cls.gene_max, 0.5*cls.gene_max, 0.5*0.5*cls.gene_max, 0]])
+        fit_list = []
+        for i in range(cls.ga.population.shape[0]):
+            fit_list.append(fitness(tuple(cls.ga.population[i])))
+        cls.ga.rank_fitness(fit_list)
+        filename = "test_load_population.csv"
+        cls.ga.to_csv(path=filename)
+        new_ga = ga.load_csv(filename)
+        np.testing.assert_array_equal(cls.ga.population, new_ga.population)
+        os.remove(filename)
+
+    def test_trim_to_tuple(cls):
+        cls.ga.population = np.array(
+                [[2,4,5,0],
+                    [2,4,5,1],
+                    [2,0,0,0]])
+        cls.assertEqual(len(cls.ga.trim_to_tuple(0)), 3)
+        cls.assertTrue(type(cls.ga.trim_to_tuple(1)) == tuple)
 
 if __name__ == '__main__':
     unittest.main()

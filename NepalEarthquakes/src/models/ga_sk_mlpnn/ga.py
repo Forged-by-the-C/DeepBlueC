@@ -13,6 +13,9 @@ import numpy as np
 class ga():
 
     def __init__(self, population_size=10, chromosome_max_len=10, gene_max=300, gene_min=0):
+        '''
+        all arguments ints
+        '''
         self.population_size = population_size
         self.chromosome_len = chromosome_max_len
         self.gene_max = gene_max
@@ -22,7 +25,7 @@ class ga():
         self.population = np.random.randint(low=self.gene_min,
                 high=self.gene_max, size=(self.population_size,self.chromosome_len))
         self.compress_population()
-
+    
     def rank_fitness(self, score_list):
         '''
         input score_list: list, list of fitness socres (float or int) of self.population by row
@@ -96,4 +99,34 @@ class ga():
         self.mutate()
         self.population[0] = old_best
         self.compress_population()
+
+    def to_csv(self, path="population.csv"):
+        self.fit_df.to_csv(path, index=False)
+
+    def load_csv(path="population.csv", population_size=None, chromosome_max_len=None, 
+            gene_max=None, gene_min=0):
+        '''
+        input path: str, path to csv
+        rest of the arguments are ints
+        '''
+        fit_df = pd.read_csv(path)
+        population = fit_df.drop(columns='fitness').to_numpy()
+        if population_size is None:
+            population_size = fit_df.shape[0]
+        if chromosome_max_len is None:
+            chromosome_len = fit_df.shape[1]
+        if gene_max is None:
+            gene_max = np.amax(population)
+        new_ga = ga(population_size, chromosome_max_len, gene_max, gene_min)
+        new_ga.fit_df = fit_df
+        new_ga.population = population
+        return new_ga
+
+    def trim_to_tuple(self, chromosome_number=0):
+        '''
+        input chromosome_number: int, index of chromosome in population
+        output: tuple, without trailing 0's
+        '''
+        chromosome = self.population[chromosome_number]
+        return tuple(np.delete(chromosome, np.argwhere(chromosome==0)))
     
