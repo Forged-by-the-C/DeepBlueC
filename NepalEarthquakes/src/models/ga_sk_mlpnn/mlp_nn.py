@@ -44,8 +44,6 @@ class mlp(model_wrapper):
         if load_population:
             print("Loading population from file")
             self.ga = ga.load_csv()
-            print(self.ga.population)
-            input()
             self.ga.breed()
             prev_best_fitness = self.ga.fit_df.fitness.max()
         else:

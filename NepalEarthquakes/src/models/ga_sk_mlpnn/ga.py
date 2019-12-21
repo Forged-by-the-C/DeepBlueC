@@ -118,11 +118,10 @@ class ga():
         if population_size is None:
             population_size = fit_df.shape[0]
         if chromosome_max_len is None:
-            chromosome_len = fit_df.shape[1]
+            #Subtract off fitness column
+            chromosome_max_len = fit_df.shape[1] - 1
         if gene_max is None:
             gene_max = np.amax(population)
-        print("chromosome_len: {} type: {}".format(chromosome_len, type(chromosome_len))
-        print("population_size: {} type: {}".format(population_size, type(population_size))
         new_ga = ga(population_size, chromosome_max_len, gene_max, gene_min)
         new_ga.fit_df = fit_df
         new_ga.population = population
