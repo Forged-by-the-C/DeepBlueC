@@ -1,0 +1,3 @@
+Best I've seen
+
+Best Model: (268, 4, 81, 249, 230, 224, 163, 277) Val Score: 0.6670 Time to train gen: 551.3

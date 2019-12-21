@@ -14,8 +14,8 @@ http://drivendata.co/blog/richters-predictor-benchmark/
 
 NUM_ITERS_PER_TRAIN = 1
 POP_TO_CPU_FACTOR = 1
-CHROMOSOME_MAX_LEN = 10
-GENE_MAX = 50
+CHROMOSOME_MAX_LEN = 15
+GENE_MAX = 150
 GENE_MIN = 0
 
 #Silence sklearn convergence warnings
@@ -68,14 +68,14 @@ class mlp(model_wrapper):
             if prev_best_fitness >= best_fitness:
                 print(" "* 5 + "!"*5 + 
                         " No better genes found since gen {} just finished gen {}".format(
-                            best_gen, gen_number) + "#"*15)
+                            best_gen, gen_number))
             else:
                 best_gen = gen_number
                 prev_best_fitness = best_fitness
                 best_params = self.ga.trim_to_tuple(np.asarray(self.ga.fit_list).argmax()) 
             print(" "*5  + 
-                " Best Model: {} Val Score: {:.4f} Time to train gen: {:.1f}".format(
-                best_params, prev_best_fitness, time.time() - gen_tic))
+                "Best Model: {} using {} of {} genes with gene_max {}. Val Score: {:.4f} Time to train gen: {:.1f}".format(
+                best_params, len(best_params), self.ga.chromosome_len, self.ga.gene_max, prev_best_fitness, time.time() - gen_tic))
             gen_number += 1
 
 if __name__ == "__main__":
