@@ -7,20 +7,19 @@ This module has a simple feed forward network classifier with architecture deter
         n -> 100 -> 3
 '''
 
+from multiprocessing import Pool
+import os
 import pandas as pd
 import numpy as np
 
-#TODO: Make fitness function a function intended to be overloaded in inheritence
-#           use default fitness function from testing
-#TODO: Make option for multiprocessing
-
 class ga():
 
-    def __init__(self, population_size=10, chromosome_max_len=10, gene_max=300, gene_min=0):
+    def __init__(self, population_factor=1, chromosome_max_len=10, gene_max=300, gene_min=0):
         '''
+        input population_factor: int, population as factor*num_cpu
         all arguments ints
         '''
-        self.population_size = population_size
+        self.population_size = population_factor*os.cpu_count()
         self.chromosome_len = chromosome_max_len
         self.gene_max = gene_max
         self.gene_min = gene_min
@@ -107,12 +106,11 @@ class ga():
     def to_csv(self, path="population.csv"):
         self.fit_df.to_csv(path, index=False)
 
-    def load_csv(path="population.csv", population_size=None, chromosome_max_len=None, 
+    def load_csv(self, path="population.csv", population_size=None, chromosome_max_len=None, 
             gene_max=None, gene_min=0):
         '''
         input path: str, path to csv
         rest of the arguments are ints
-        '''
         fit_df = pd.read_csv(path)
         population = fit_df.drop(columns='fitness').to_numpy()
         if population_size is None:
@@ -122,10 +120,21 @@ class ga():
             chromosome_max_len = fit_df.shape[1] - 1
         if gene_max is None:
             gene_max = np.amax(population)
-        new_ga = ga(population_size, chromosome_max_len, gene_max, gene_min)
+        new_ga = type(self).(population_size, chromosome_max_len, gene_max, gene_min)
         new_ga.fit_df = fit_df
         new_ga.population = population
         return new_ga
+        '''
+        self.fit_df = pd.read_csv(path)
+        self.population = self.fit_df.drop(columns='fitness').to_numpy()
+        if population_size is None:
+            self.population_size = self.population.shape[0]
+        if chromosome_max_len is None:
+            #Subtract off fitness column
+            self.chromosome_max_len = self.population.shape[1]
+        if gene_max is None:
+            self.gene_max = np.amax(self.population)
+        self.gene_min = gene_min
 
     def trim_to_tuple(self, chromosome_number=0):
         '''
@@ -135,3 +144,28 @@ class ga():
         chromosome = self.population[chromosome_number]
         return tuple(np.delete(chromosome, np.argwhere(chromosome==0)))
     
+    def fitness(self, chromosome_number=0):
+        '''
+        input chromosome_number: int
+        output: fitness value
+        '''
+        tup = self.trim_to_tuple(chromosome_number)
+        if len(tup) < 3:
+            for i in range(len(tup),3):
+                tup = list(tup)
+                tup.append(0)
+                tup = tuple(tup)
+        out = tup[0] - abs(0.5*tup[0] - tup[1]) - abs(0.5*tup[1] - tup[2])
+        if len(tup) > 3:
+            for i in range(3,len(tup)):
+                out -= tup[i]
+        return out
+
+    def multiprocess_iterate_generation(self):
+        self.fit_list = [0 for i in range(self.population.shape[0])]
+        with Pool(processes=None) as pool:
+            self.fit_list = pool.map(self.fitness, list(range(self.population.shape[0])))
+            pool.close()
+            pool.join()
+        self.rank_fitness(self.fit_list)
+        self.breed()
