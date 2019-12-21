@@ -11,7 +11,15 @@ from ga import ga
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
+#TODO: Fix Logging
+
 num_iters_per_train = 1
+
+#Silence sklearn convergence warnings
+def warn(*args, **kwargs):
+        pass
+import warnings
+warnings.warn = warn
 
 class mlp(model_wrapper):
 
@@ -34,52 +42,50 @@ class mlp(model_wrapper):
         X_val,y_val = self.load_data("val")
         prev_best_fitness = 0
         if load_population:
+            print("Loading population from file")
             self.ga = ga.load_csv()
+            print(self.ga.population)
+            input()
             self.ga.breed()
             prev_best_fitness = self.ga.fit_df.fitness.max()
         else:
             self.ga = ga(population_size=10, chromosome_max_len=10, gene_max=300, gene_min=0)
             self.ga.gen_population()
         while True:
+            gen_number = 0
             best_fitness = 0
             fit_list = []
-            tic = time.time()
-            for i in range(self.ga.population.shape[0]):
+            pop_size = self.ga.population.shape[0]
+            gen_tic = time.time()
+            for i in range(pop_size):
+                tic = time.time()
                 hidden_layer_sizes = self.ga.trim_to_tuple(i)
                 if prev_best_fitness > 0 and i==0:
                     #Current the algorithm puts the best chromosome from the previous generation first
                     fitness = prev_best_fitness
                 else:    
                     model = self.train(X,y,-1,hidden_layer_sizes)
-                    fitness = f1_score(y_true=y, y_pred=model.predict(X), average='micro') 
-                print("Model: {} F1 Score: {}".format(hidden_layer_sizes, fitness))
+                    train_score = f1_score(y_true=y, y_pred=model.predict(X), average='micro') 
+                    fitness = f1_score(y_true=y_val, y_pred=model.predict(X_val), average='micro') 
+                    print("*"*5 + " Child {} of {} :: Model: {} Train Score: {:.4f} Val Score: {:4f} Time to train: {:.1f}".format(
+                        i, pop_size, hidden_layer_sizes, train_score, fitness, time.time() - tic))
                 if fitness > best_fitness:
-                    best_model = model
                     best_params = hidden_layer_sizes
                     best_fitness = fitness
                 fit_list.append(fitness)
             self.ga.rank_fitness(fit_list)
             self.ga.to_csv()
-            #TODO: Fix Logging
-            #print("-"*10 +"Logging Generation" + "-"*10)
-            val_score = f1_score(y_true=y_val, y_pred=best_model.predict(X_val), average='micro')
-            print("Best Model: {} Train Score: {} Val Score: {}".format(best_params, best_fitness, val_score))
-            if False:
-            #if prev_best_fitness < best_fitness:
+            if prev_best_fitness == best_fitness:
+                print("#"*15 + "No better genes found since gen {} just finished gen {}".format(best_gen, gen_number) + "#"*15)
+            else:
+                best_gen = gen_number
                 prev_best_fitness = best_fitness
-                self.clf = best_model
-                self.save_model()
-                self.ga.breed()
-                self.results_dict["time_to_train_generation"] = time.time() - tic
-                self.results_dict["best_params"] = list(best_params)
-                self.results_dict["training_score"] = best_fitness 
-                self.results_dict["val_score"] = val_score 
-                self.log_results()
-                #else:
-                print("*"*15 + "No better genes found since last generation" + "*"*15)
+            print("#"*15 +"Best Model: {} Val Score: {:.4f} Time to train gen: {:.1f}".format(
+                best_params, best_fitness, time.time() - gen_tic))
+            gen_number += 1
 
 if __name__ == "__main__":
     mod = mlp({"ga":"mlp"})
-    mod.run_ga(load_population=False)
+    mod.run_ga(load_population=True)
     #mod.load_and_score()
     #mod.load_and_predict_submission()

@@ -26,7 +26,7 @@ class mlp(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = MLPClassifier(hidden_layer_sizes=(100, ), max_iter=2000)
+        clf = MLPClassifier(hidden_layer_sizes=(213, 113, 81, 176, 267, 291, 244, 91, 214, 287), max_iter=5000)
         clf.fit(X, y)
         return clf
 

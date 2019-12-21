@@ -10,6 +10,10 @@ This module has a simple feed forward network classifier with architecture deter
 import pandas as pd
 import numpy as np
 
+#TODO: Make fitness function a function intended to be overloaded in inheritence
+#           use default fitness function from testing
+#TODO: Make option for multiprocessing
+
 class ga():
 
     def __init__(self, population_size=10, chromosome_max_len=10, gene_max=300, gene_min=0):
@@ -117,6 +121,8 @@ class ga():
             chromosome_len = fit_df.shape[1]
         if gene_max is None:
             gene_max = np.amax(population)
+        print("chromosome_len: {} type: {}".format(chromosome_len, type(chromosome_len))
+        print("population_size: {} type: {}".format(population_size, type(population_size))
         new_ga = ga(population_size, chromosome_max_len, gene_max, gene_min)
         new_ga.fit_df = fit_df
         new_ga.population = population
