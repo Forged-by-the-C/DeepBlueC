@@ -10,8 +10,8 @@ from src.utils.model_wrapper import model_wrapper
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-HIDDEN_LAYER_SIZES = (260, 383, 137, 4, 163, 171, 119, 141, 259, 186, 356, 161, 270, 51, 116)
-MAX_ITERS = 10 
+HIDDEN_LAYER_SIZES = (400, 153, 198, 43, 146, 50, 28, 332, 302, 364, 45, 394, 90, 106, 56)
+ITERS_PER_SAVE = 10 
 
 class mlp(model_wrapper):
 
@@ -25,7 +25,7 @@ class mlp(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = MLPClassifier(hidden_layer_sizes=HIDDEN_LAYER_SIZES, max_iter=MAX_ITERS)
+        clf = MLPClassifier(hidden_layer_sizes=HIDDEN_LAYER_SIZES, max_iter=1)
         clf.fit(X, y)
         return clf
 
@@ -36,7 +36,7 @@ class mlp(model_wrapper):
         train_start = time.time()
         total_iterations = 0
         while True:
-            for i in range(MAX_ITERS):
+            for i in range(ITERS_PER_SAVE):
                 self.clf.partial_fit(X,y)
                 total_iterations += 1
                 train_score = f1_score(y_true=y, y_pred=self.clf.predict(X), average='micro') 
@@ -55,7 +55,7 @@ class mlp(model_wrapper):
 
 if __name__ == "__main__":
     mod = mlp({"single":"mlp"})
-    #mod.train_and_score(save_model=True)
+    mod.train_and_score(save_model=True)
     mod.train_by_iter()
     #mod.load_and_score()
     #mod.load_and_predict_submission()

@@ -37,6 +37,6 @@ class gradient_boosting(model_wrapper):
 
 if __name__ == "__main__":
     mod = gradient_boosting({"single":"gb"})
-    mod.train_and_score(n_jobs=-1, save_model=True)
-    #mod.load_and_score()
+    #mod.train_and_score(n_jobs=-1, save_model=True)
+    mod.load_and_score()
     #mod.load_and_predict_submission()
