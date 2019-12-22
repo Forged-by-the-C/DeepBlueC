@@ -1,0 +1,14 @@
+Best I've seen
+
+Best Model: (268, 4, 81, 249, 230, 224, 163, 277) Val Score: 0.6670 Time to train gen: 551.3
+Best Val score on subsequent trainings: 0.7188795088257867
+
+Other highs
+
+Best Model: (311, 321, 321, 19, 167, 169, 360, 63, 153, 311, 63, 175, 152, 94, 127, 167) using 16 of 20 genes with gene_max 400. Val Score: 0.6579 Time to tr
+ain gen: 3617.0
+Train Score: 0.7864 Val Score 0.7241
+
+
+Best Model: (260, 383, 137, 4, 163, 171, 119, 141, 259, 186, 356, 161, 270, 51, 116) using 15 of 15 genes with gene_max 400. Val Score: 0.6584 Time to train 
+gen: 17289.9

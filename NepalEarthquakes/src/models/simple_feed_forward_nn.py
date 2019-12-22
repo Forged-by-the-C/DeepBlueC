@@ -47,7 +47,6 @@ class simple_nn(model_wrapper):
 
     def train(self):
         epochs = int(input("Num Epochs?\nInput: "))
-        epochs = 400
         X,y = self.load_data("train")
         #TODO: Use torch.utils.datasetloader
         x_train = torch.FloatTensor(X)
@@ -109,6 +108,6 @@ class simple_nn(model_wrapper):
         #print(np.sum(conf_matrix*(1 - np.identity(conf_matrix.shape[0])), axis=1))
 
 if __name__ == "__main__":
-    mod = simple_nn({"name":"nn1_beat_sk"})
-    mod.train()
-    #mod.load_and_score()
+    mod = simple_nn({"name":"nn"})
+    #mod.train()
+    mod.load_and_score()

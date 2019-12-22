@@ -2,17 +2,16 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
 from sklearn.neural_network import MLPClassifier
-from sklearn.ensemble import ExtraTreesClassifier
-# for combining the preprocess with model training
-from sklearn.pipeline import make_pipeline
-# for optimizing the hyperparameters of the pipeline
-from sklearn.model_selection import RandomizedSearchCV
+import time
 
 from src.utils.model_wrapper import model_wrapper
 
 '''
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
+
+HIDDEN_LAYER_SIZES = (260, 383, 137, 4, 163, 171, 119, 141, 259, 186, 356, 161, 270, 51, 116)
+MAX_ITERS = 10 
 
 class mlp(model_wrapper):
 
@@ -26,12 +25,37 @@ class mlp(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = MLPClassifier(hidden_layer_sizes=(100, ), max_iter=2000)
+        clf = MLPClassifier(hidden_layer_sizes=HIDDEN_LAYER_SIZES, max_iter=MAX_ITERS)
         clf.fit(X, y)
         return clf
 
+    def train_by_iter(self):
+        X,y = self.load_data("train")
+        X_val,y_val = self.load_data("val")
+        self.load_model()
+        train_start = time.time()
+        total_iterations = 0
+        while True:
+            for i in range(MAX_ITERS):
+                self.clf.partial_fit(X,y)
+                total_iterations += 1
+                train_score = f1_score(y_true=y, y_pred=self.clf.predict(X), average='micro') 
+                val_score = f1_score(y_true=y_val, y_pred=self.clf.predict(X_val), 
+                        average='micro')  
+                print("Time Elapsed {} :: Iter: {} Train Score: {:.4f} Val Score {:.4f}".format(
+                    time.strftime("%H:%M:%S", time.gmtime(time.time() - train_start)), 
+                    total_iterations, train_score, val_score))
+            print("++ Starting to save model ++")
+            self.save_model()
+            print("++ Completed saving model ++")
+            self.results_dict["time_to_train"] = time.time() - train_start
+            self.results_dict["training_score"] = train_score 
+            self.results_dict["val_score"] = val_score 
+            self.log_results(print_to_screen=False)
+
 if __name__ == "__main__":
     mod = mlp({"single":"mlp"})
-    mod.train_and_score(n_jobs=-1, save_model=True)
+    #mod.train_and_score(save_model=True)
+    mod.train_by_iter()
     #mod.load_and_score()
     #mod.load_and_predict_submission()
