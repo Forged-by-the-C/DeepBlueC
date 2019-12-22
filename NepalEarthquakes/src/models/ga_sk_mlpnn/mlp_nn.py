@@ -44,7 +44,7 @@ class mlp(model_wrapper):
             print("Loading population from file")
             self.ga = mlp_ga()
             self.ga.load_csv()
-            self.ga.population_size = POP_TO_CPU_FACTOR*os.cpu_count()
+            self.ga.population_size = int(POP_TO_CPU_FACTOR*os.cpu_count()))
             self.ga.breed()
             prev_best_fitness = self.ga.fit_df.fitness.max()
             best_params = self.ga.trim_to_tuple(0)

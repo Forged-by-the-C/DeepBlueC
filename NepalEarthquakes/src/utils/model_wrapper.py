@@ -124,7 +124,7 @@ class model_wrapper():
         for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
             print(mean_score, params)
 
-    def log_results(self):
+    def log_results(self, print_to_screen=True):
         json_filename = dir_w.construct_dir_path(project_dir="NepalEarthquakes",
                 sub_dir="models") + "results.json"
         if os.path.exists(json_filename):
@@ -136,8 +136,9 @@ class model_wrapper():
             write_dict[self.param_string].update(self.results_dict)
         else:
             write_dict[self.param_string] = self.results_dict
-        for k in write_dict[self.param_string]:
-            print("{} : {}".format(k, write_dict[self.param_string][k]))
+        if print_to_screen:
+            for k in write_dict[self.param_string]:
+                print("{} : {}".format(k, write_dict[self.param_string][k]))
         with open(json_filename, 'w') as outfile:
                 json.dump(write_dict, outfile, indent=6)
 

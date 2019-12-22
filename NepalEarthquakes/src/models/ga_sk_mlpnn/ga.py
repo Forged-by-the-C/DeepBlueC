@@ -19,7 +19,7 @@ class ga():
         input population_factor: int, population as factor*num_cpu
         all arguments ints
         '''
-        self.population_size = population_factor*os.cpu_count()
+        self.population_size = int(population_factor*os.cpu_count())
         self.chromosome_len = chromosome_max_len
         self.gene_max = gene_max
         self.gene_min = gene_min
