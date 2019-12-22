@@ -12,10 +12,10 @@ from ga import ga
 http://drivendata.co/blog/richters-predictor-benchmark/
 '''
 
-NUM_ITERS_PER_TRAIN = 1
-POP_TO_CPU_FACTOR = 1
-CHROMOSOME_MAX_LEN = 15
-GENE_MAX = 300
+NUM_ITERS_PER_TRAIN = 2
+POP_TO_CPU_FACTOR = 0.5
+CHROMOSOME_MAX_LEN = 17
+GENE_MAX = 10
 GENE_MIN = 0
 
 #Silence sklearn convergence warnings
@@ -44,7 +44,7 @@ class mlp(model_wrapper):
             print("Loading population from file")
             self.ga = mlp_ga()
             self.ga.load_csv()
-            self.ga.population_size = int(POP_TO_CPU_FACTOR*os.cpu_count()))
+            self.ga.population_size = int(POP_TO_CPU_FACTOR*os.cpu_count())
             self.ga.breed()
             prev_best_fitness = self.ga.fit_df.fitness.max()
             best_params = self.ga.trim_to_tuple(0)
@@ -82,6 +82,6 @@ class mlp(model_wrapper):
 
 if __name__ == "__main__":
     mod = mlp({"ga":"mlp"})
-    mod.run_ga(load_population=False)
+    mod.run_ga(load_population=True)
     #mod.load_and_score()
     #mod.load_and_predict_submission()

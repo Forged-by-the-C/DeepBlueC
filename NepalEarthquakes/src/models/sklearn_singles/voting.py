@@ -19,7 +19,7 @@ class voting(model_wrapper):
         self.clf_tuple_list = []
         self.results_dict["model_list"] = []
         for f in os.listdir(model_dir):
-            if 'single' in f:
+            if 'single' in f and 'pkl' in f:
                 model_name = f.split('.')[0]
                 print("Loading model: {}".format(model_name))
                 with open((model_dir+f), 'rb+') as c:
@@ -44,7 +44,6 @@ class voting(model_wrapper):
 
 if __name__ == "__main__":
     mod = voting({"ensemble":"voting"})
-    #mod.gen_clf_tuple_list()
-    mod.train_and_score(n_jobs=-1, save_model=True)
-    #mod.load_and_score()
+    #mod.train_and_score(n_jobs=-1, save_model=True)
+    mod.load_and_score()
     #mod.load_and_predict_submission()
