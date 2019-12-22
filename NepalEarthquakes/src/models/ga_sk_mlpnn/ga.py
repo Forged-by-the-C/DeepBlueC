@@ -131,7 +131,7 @@ class ga():
             self.population_size = self.population.shape[0]
         if chromosome_max_len is None:
             #Subtract off fitness column
-            self.chromosome_max_len = self.population.shape[1]
+            self.chromosome_len = self.population.shape[1]
         if gene_max is None:
             self.gene_max = np.amax(self.population)
         self.gene_min = gene_min
