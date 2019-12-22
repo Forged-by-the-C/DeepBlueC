@@ -15,3 +15,9 @@ Time Elapsed 00:39:35 :: Iter: 29 Train Score: 0.7499 Val Score 0.7212
 Time Elapsed 01:05:16 :: Iter: 30 Train Score: 0.7492 Val Score 0.7198
 
 Val Score: 0.6746 Chromosome: (400, 153, 198, 43, 146, 50, 28, 332, 302, 364, 45, 394, 90, 106, 56)
+Time Elapsed 00:54:36 :: Iter: 40 Train Score: 0.7723 Val Score 0.7226
+
+Best Model: (159, 138, 349, 286, 241, 283, 282, 89, 400, 237, 312, 27, 283, 382, 115, 340, 27) using 17 of 17 genes with gene_max 400. Val Score: 0.6762 Time to train gen: 3428.9
+
+Best Model: (159, 121, 189, 272, 264, 325, 146, 363, 266, 198, 187, 81, 75, 43) using 14 of 17 genes with gene_max 400. Val Score: 0.6777 Time to train gen: 3439.8
+04:45:41 :: Training 48 chromosomes in Gen 5

@@ -1,11 +1,11 @@
 {
       "single_mlp_": {
-            "time_to_train": 886.6866939067841,
+            "time_to_train": 328.7687680721283,
             "n_iter": 1,
             "cross_folds": 2,
             "n_jobs": -1,
-            "training_score": 0.7466375671527244,
-            "val_score": 0.7209900230237912,
+            "training_score": 0.7211195318495779,
+            "val_score": 0.7110897927858787,
             "confusion_matrix": [
                   [
                         0.05966999232540292,
