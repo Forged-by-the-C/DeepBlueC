@@ -15,7 +15,7 @@ http://drivendata.co/blog/richters-predictor-benchmark/
 NUM_ITERS_PER_TRAIN = 1
 POP_TO_CPU_FACTOR = 1
 CHROMOSOME_MAX_LEN = 15
-GENE_MAX = 150
+GENE_MAX = 300
 GENE_MIN = 0
 
 #Silence sklearn convergence warnings
@@ -30,7 +30,9 @@ class mlp_ga(ga):
         hidden_layer_sizes = self.trim_to_tuple(chromosome_number)
         clf = MLPClassifier(hidden_layer_sizes, max_iter=NUM_ITERS_PER_TRAIN)
         clf.fit(self.X, self.y)
-        return f1_score(y_true=self.y_val, y_pred=clf.predict(self.X_val), average='micro') 
+        score = f1_score(y_true=self.y_val, y_pred=clf.predict(self.X_val), average='micro') 
+        print("--val_score: {:.4f} Chromosome: {} ".format(score, hidden_layer_sizes))
+        return score 
 
 class mlp(model_wrapper):
 
