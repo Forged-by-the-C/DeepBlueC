@@ -1,12 +1,12 @@
 import os
 
-def construct_dir_path(project_dir="NepalEarthquakes",
+def construct_dir_path(project_dir="DengAI",
         sub_dir="Data"):
     cwd_path = os.getcwd().split('/')
     path_to_file = []
     for d in cwd_path:
         path_to_file.append(d)
-        if d == 'NepalEarthquakes':
+        if d == project_dir:
             break
     path_to_file.append(sub_dir)
     out_str ='/' + os.path.join(*path_to_file) + '/'

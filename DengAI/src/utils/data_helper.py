@@ -9,7 +9,7 @@ def construct_data_path(sub_dir, data_set):
     input data_set: str
     output: full path to data_set.csv
     '''
-    return construct_dir_path(project_dir="NepalEarthquakes",
+    return construct_dir_path(project_dir="DengAI",
             sub_dir="Data") + "{}/{}.csv".format(sub_dir, data_set)
 
 def load_df(file_path):
@@ -19,7 +19,7 @@ def load_df(file_path):
     output label_series: pandas series, index building_id, entries of damage_grade
     '''
     df = pd.read_csv(file_path, index_col=0)
-    label_col = "damage_grade"
+    label_col = "total_cases"
     features = list(df.columns)
     if label_col in features:
         features.remove(label_col)
