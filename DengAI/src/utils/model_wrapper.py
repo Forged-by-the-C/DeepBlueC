@@ -9,11 +9,13 @@ import time
 import src.utils.data_helper as data_w
 import src.utils.dir_helper as dir_w
 
+
 class model_wrapper():
 
     def __init__(self, param_dict = {"name":"init"}):
         self.param_dict = param_dict
         self.results_dict = {}
+        self.project_dir = "DengAI"
         self.param_string = self.gen_param_string(self.param_dict)
         self.gen_model_file_path()
 
@@ -24,11 +26,11 @@ class model_wrapper():
         return param_string
 
     def gen_model_file_path(self):
-        self.model_file_path = dir_w.construct_dir_path(project_dir="NepalEarthquakes",
+        self.model_file_path = dir_w.construct_dir_path(project_dir=self.project_dir,
                 sub_dir="models") + self.param_string + ".pkl"
 
     def gen_conf_plot_file_path(self):
-        return dir_w.construct_dir_path(project_dir="NepalEarthquakes",
+        return dir_w.construct_dir_path(project_dir=self.project_dir,
                 sub_dir="models") + "conf_plot_" + self.param_string + ".png"
 
     def load_data(self, split="train"):
@@ -79,21 +81,24 @@ class model_wrapper():
         with open(self.model_file_path, 'rb+') as f:
             self.clf = pickle.load(f)
 
-    def load_and_predict_submission(self):
+    def load_and_predict_submission(self, submission_cols, target_col):
         self.load_model()
         f_df = self.grab_submission_data()
         X = f_df.values
         g = self.clf.predict(X)
-        y_df = pd.DataFrame(g, index=f_df.index, columns=["damage_grade"])
+        y_df = pd.DataFrame(g, index=f_df[[submission_cols]], columns=[target_col])
         y_df.to_csv('submission.csv')
+
+    def score(self, y_true, y_pred):
+        return f1_score(y_true=y_true, y_pred=y_pred, average='micro')
 
     def load_and_score(self):
         self.load_model()
         X,y = self.load_data(split="val")
         g = self.clf.predict(X)
-        self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
-        conf_matrix = self.gen_conf_matrix(y, g)
-        self.results_dict["confusion_matrix"] = conf_matrix.tolist()
+        self.results_dict["val_score"] = self.score(y, g)         
+        #conf_matrix = self.gen_conf_matrix(y, g)
+        #self.results_dict["confusion_matrix"] = conf_matrix.tolist()
         self.log_results()
         self.plot_conf_matrix(conf_matrix)
 
@@ -125,7 +130,7 @@ class model_wrapper():
             print(mean_score, params)
 
     def log_results(self, print_to_screen=True):
-        json_filename = dir_w.construct_dir_path(project_dir="NepalEarthquakes",
+        json_filename = dir_w.construct_dir_path(project_dir=self.project_dir,
                 sub_dir="models") + "results.json"
         if os.path.exists(json_filename):
             with open(json_filename, 'r') as outfile:
@@ -161,10 +166,10 @@ class model_wrapper():
         self.results_dict["n_iter"] = n_iter
         self.results_dict["cross_folds"] = cv
         self.results_dict["n_jobs"] = n_jobs
-        self.results_dict["training_score"] = f1_score(y_true=y, y_pred=g, average='micro') 
+        self.results_dict["training_score"] = self.score(y,g) 
         X,y = self.load_data("val")
         g = self.clf.predict(X)
-        self.results_dict["val_score"] = f1_score(y_true=y, y_pred=g, average='micro')
+        self.results_dict["val_score"] = self.score(y,g) 
         if hasattr(self.clf, 'cv_results_'):
             cvres = self.clf.cv_results_
             self.results_dict["cv_results"] = list(zip(cvres["mean_test_score"], cvres["params"]))
