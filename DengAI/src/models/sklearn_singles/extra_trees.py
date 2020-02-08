@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
-from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.ensemble import ExtraTreesRegressor
 
 from src.utils.model_wrapper import model_wrapper
 import src.utils.data_helper as data_w
@@ -22,7 +22,7 @@ class extra_trees(model_wrapper):
                             -1 indicates using all processors
         output: trained model
         '''
-        clf = ExtraTreesClassifier(random_state=2018, 
+        clf = ExtraTreesRegressor(criterion="mae", 
                 n_estimators=320, max_features="sqrt",
                                   min_samples_leaf=3, n_jobs=-1)
         clf.fit(X, y)
@@ -30,6 +30,6 @@ class extra_trees(model_wrapper):
 
 if __name__ == "__main__":
     mod = extra_trees({"single":"et"})
-    #mod.train_and_score(save_model=True)
-    mod.load_and_score()
+    mod.train_and_score(save_model=True)
+    #mod.load_and_score()
     #mod.load_and_predict_submission()

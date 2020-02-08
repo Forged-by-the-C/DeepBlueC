@@ -10,10 +10,6 @@ from sklearn.feature_selection import SelectFromModel
 def one_hot_ec(df: pd.DataFrame, to_oh: list):
     return pd.get_dummies(df, columns=to_oh)
 
-def rf_features(df):
-
-    return df
-
 def binary_ec(df, to_bin: list):
     return
 
@@ -115,7 +111,7 @@ def categorical_trim(start_df: pd.DataFrame, submit_df:pd.DataFrame, dependent: 
     #save_model(replaced, "../features/trim_dict.pkl")
     return df, submit_df
 
-def old_rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str, to_skip: list, num_cats: list, james:list):
+def rf_features(eng_df: pd.DataFrame, submit_df:pd.DataFrame, dependent_col: str, to_skip: list, num_cats: list, james:list):
     #Drop skip list
     eng_df = eng_df.drop(to_skip, axis=1)
     submit_df = submit_df.drop(to_skip, axis=1)

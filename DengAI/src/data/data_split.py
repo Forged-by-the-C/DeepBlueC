@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from src.features.feat_eng import rf_features
+#from src.features.feat_eng import rf_features
 
 
 def split_df(whole_df: pd.DataFrame, ratio: list, interim_loc: str):

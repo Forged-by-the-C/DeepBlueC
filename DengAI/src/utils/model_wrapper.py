@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import pickle
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import f1_score
+from sklearn.metrics import mean_absolute_error
 import time
 
 import src.utils.data_helper as data_w
@@ -90,7 +90,7 @@ class model_wrapper():
         y_df.to_csv('submission.csv')
 
     def score(self, y_true, y_pred):
-        return f1_score(y_true=y_true, y_pred=y_pred, average='micro')
+        return mean_absolute_error(y_true=y_true, y_pred=y_pred)
 
     def load_and_score(self):
         self.load_model()
