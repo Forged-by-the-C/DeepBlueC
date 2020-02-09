@@ -88,7 +88,7 @@ class model_wrapper():
         g = self.clf.predict(X)
         #y_df = pd.DataFrame(g, index=f_df[[submission_cols]], columns=[target_col])
         y_df = pd.DataFrame(g, columns=["total_cases"])
-        y_df["total_cases"]=y_df["total_cases"].astype('int64')
+        y_df["total_cases"]=y_df["total_cases"].round().astype('int64')
         y_df["old_index"] = f_df.index
         y_df["city"] = y_df["old_index"].apply(lambda x: x.split("_")[0])
         y_df["year"] = y_df["old_index"].apply(lambda x: x.split("_")[1])
