@@ -81,12 +81,13 @@ class model_wrapper():
         with open(self.model_file_path, 'rb+') as f:
             self.clf = pickle.load(f)
 
-    def load_and_predict_submission(self, submission_cols, target_col):
+    def load_and_predict_submission(self):
         self.load_model()
         f_df = self.grab_submission_data()
         X = f_df.values
         g = self.clf.predict(X)
-        y_df = pd.DataFrame(g, index=f_df[[submission_cols]], columns=[target_col])
+        #y_df = pd.DataFrame(g, index=f_df[[submission_cols]], columns=[target_col])
+        y_df = pd.DataFrame(g)
         y_df.to_csv('submission.csv')
 
     def score(self, y_true, y_pred):
