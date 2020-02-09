@@ -1,6 +1,7 @@
 import json
 import os
 import pandas as pd
+import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_absolute_error
@@ -81,16 +82,23 @@ class model_wrapper():
         with open(self.model_file_path, 'rb+') as f:
             self.clf = pickle.load(f)
 
-    def load_and_predict_submission(self, submission_cols, target_col):
+    def load_and_predict_submission(self):
         self.load_model()
         f_df = self.grab_submission_data()
         X = f_df.values
         g = self.clf.predict(X)
-        y_df = pd.DataFrame(g, index=f_df[[submission_cols]], columns=[target_col])
-        y_df.to_csv('submission.csv')
+        #y_df = pd.DataFrame(g, index=f_df[[submission_cols]], columns=[target_col])
+        y_df = pd.DataFrame(g, columns=["total_cases"])
+        y_df["total_cases"]=y_df["total_cases"].round().astype('int64')
+        y_df["old_index"] = f_df.index
+        y_df["city"] = y_df["old_index"].apply(lambda x: x.split("_")[0])
+        y_df["year"] = y_df["old_index"].apply(lambda x: x.split("_")[1])
+        y_df["weekofyear"] = y_df["old_index"].apply(lambda x: x.split("_")[2])
+        y_df.drop(["old_index"], axis=1, inplace=True)
+        y_df[["city","year","weekofyear","total_cases"]].to_csv('submission.csv', index=False)
 
     def score(self, y_true, y_pred):
-        return mean_absolute_error(y_true=y_true, y_pred=y_pred)
+        return mean_absolute_error(y_true=y_true, y_pred=np.rint(y_pred))
 
     def load_and_score(self):
         self.load_model()

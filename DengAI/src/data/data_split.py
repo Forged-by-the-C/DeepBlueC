@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 #from src.features.feat_eng import rf_features
 
-
 def split_df(whole_df: pd.DataFrame, ratio: list, interim_loc: str):
     # Set random seed for repeatability
     np.random.seed(2016)
@@ -36,6 +35,11 @@ def gen_primary_key(df, cols_to_combine, primary_key_name="pk"):
    for col in cols_to_combine[1:]:
         df[primary_key_name] = df[primary_key_name].str.cat(df[col].astype(str), sep="_")
 
+def feat_eng(df):
+    out_df = df[["pk","ndvi_ne","ndvi_nw","ndvi_se","ndvi_sw"]].copy()
+    out_df.fillna(0, inplace=True)
+    return out_df
+
 if __name__ == '__main__':
     # Fixed vars for data locations and [train, val, test] splits for data
     split_ratio = [.8, .1, .1]
@@ -54,8 +58,11 @@ if __name__ == '__main__':
     for df in df_list:
         gen_primary_key(df, cols_to_combine=["city", "year", "weekofyear"], primary_key_name=PRIMARY_KEY)
 
-    whole_df = combine_vals_labels(train_features_df, train_vals_df, PRIMARY_KEY)
+    whole_df = combine_vals_labels(feat_eng(train_features_df), 
+            train_vals_df[[PRIMARY_KEY,"total_cases"]], PRIMARY_KEY)
 
+    submit_features_df = feat_eng(submit_features_df)
+    submit_features_df.set_index(PRIMARY_KEY, inplace=True)
     submit_features_df.to_csv("../../Data/interim/submit_vals.csv")
     #Pass combined df to split and save as csvs in processed file
     split_df(whole_df, split_ratio, interim_loc)
