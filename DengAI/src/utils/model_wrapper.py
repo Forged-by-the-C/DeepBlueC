@@ -1,6 +1,7 @@
 import json
 import os
 import pandas as pd
+import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_absolute_error
@@ -97,7 +98,7 @@ class model_wrapper():
         y_df[["city","year","weekofyear","total_cases"]].to_csv('submission.csv', index=False)
 
     def score(self, y_true, y_pred):
-        return mean_absolute_error(y_true=y_true, y_pred=y_pred)
+        return mean_absolute_error(y_true=y_true, y_pred=np.rint(y_pred))
 
     def load_and_score(self):
         self.load_model()
